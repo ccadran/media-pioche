@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useArticlesStore } from '~/stores/articles';
 import type { Week } from '~/@types/api';
 
-// Chargement des semaines depuis l'API
+
 const { data, error } = await useFetch('/api/week');
 
 
@@ -20,18 +20,16 @@ if (weeks.value.length > 0) {
   mainWeek.value = weeks.value[0]; 
   otherWeeks.value = weeks.value.slice(1); 
 }
-
-console.log(mainWeek.value);
-console.log(otherWeeks.value);
-
-
 </script>
 
 
 <template>
   <div class="weeks-container">
     <div class="main-week">
-      <h1>{{ mainWeek!.date }}</h1>
+      <h3>{{ mainWeek!.date }}</h3>
+      <div class="img-container">
+        <img :src="mainWeek!.cover" alt="">
+      </div>
     </div>
     <div class="weeks-list">
       <div v-for="week in otherWeeks" class="week">
@@ -43,6 +41,33 @@ console.log(otherWeeks.value);
 </template>
 
 <style lang="scss">
+  .weeks-container{
+    display: flex;
+    flex-direction: column;
+    >.main-week{
+      background-color: #34DF77;
+      display: flex;
+      flex-direction: column;
+      max-height: 300px;
+      border-radius: 12px;
+      padding: 14px;
+      h3{
+        font-family: Clash Grotesk;
+        text-transform: uppercase;
 
+      }
+      >.img-container{
+        height: 100%;
+        overflow: hidden;
+        border-radius: 12px;
+        >img{
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+
+        }
+      }
+    }
+  }
 
 </style>
