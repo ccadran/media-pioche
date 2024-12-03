@@ -1,12 +1,13 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import type { Article } from "~/@types/api";
 
 export const useArticlesStore = defineStore("articles", () => {
-  const articles = ref([]);
+  const articles = ref<Article[]>([]);
   const currentIndex = ref(0);
 
-  function addArticle(article) {
-    const exists = articles.value.some((a) => a.id === article.id);
+  function addArticle(article: Article) {
+    const exists = articles.value.some((a: Article) => a.id === article.id);
 
     if (!exists) {
       articles.value.push(article);
@@ -17,7 +18,7 @@ export const useArticlesStore = defineStore("articles", () => {
     }
   }
 
-  function removeArticle(articleId) {
+  function removeArticle(articleId: number) {
     articles.value = articles.value.filter(
       (article) => article.id !== articleId
     );

@@ -2,13 +2,14 @@
 
 <script lang="ts" setup>
 import { useArticlesStore } from '~/stores/articles';
+import type { Article } from '~/@types/api';
 
 const articleStore = useArticlesStore();
 
 const route = useRoute();
 const articleId = route.params.id;
 console.log(articleId);
-const article = ref({});
+const article = ref({}) as Ref<Article>;
 
 const { data, error } = await useFetch(`/api/article/${articleId}`);
 
