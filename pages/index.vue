@@ -1,29 +1,48 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { useArticlesStore } from '~/stores/articles';
-const { data } = await useFetch('/api/week') 
+import type { Week } from '~/@types/api';
 
-const articlesStores = useArticlesStore();
-
-const weeks = ref(data.value)
-
+// Chargement des semaines depuis l'API
+const { data, error } = await useFetch('/api/week');
 
 
-console.log(weeks.value);
+const weeks = ref<Week[]>([]);
+const mainWeek = ref<Week>(); 
+const otherWeeks = ref<Week[]>([]);
+
+if (Array.isArray(data.value)){
+  weeks.value = data.value;
+}
+
+
+if (weeks.value.length > 0) {
+  mainWeek.value = weeks.value[0]; 
+  otherWeeks.value = weeks.value.slice(1); 
+}
+
+console.log(mainWeek.value);
+console.log(otherWeeks.value);
 
 
 </script>
 
+
 <template>
-  <div>
-    <h1>Articles</h1>
-    <ul>
-      <li v-for="week in weeks" :key="week.id">
-        <nuxt-link :to="`/swipe/${week.id}`">{{ week.date }}</nuxt-link>
-      </li>
-    </ul>
+  <div class="weeks-container">
+    <div class="main-week">
+      <h1>{{ mainWeek!.date }}</h1>
+    </div>
+    <div class="weeks-list">
+      <div v-for="week in otherWeeks" class="week">
+        <h3>{{ week.date }}</h3>
+      </div>
+    </div>
   </div>
+
 </template>
 
 <style lang="scss">
+
 
 </style>
