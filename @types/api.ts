@@ -2,6 +2,7 @@ export interface Article {
   id: number;
   title: string;
   cover: string;
+  accroche: string;
   paragraph1: string;
   paragraph2: string;
   paragraph3: string;
