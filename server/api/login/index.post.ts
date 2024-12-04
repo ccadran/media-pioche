@@ -3,8 +3,10 @@ import { serverSupabaseClient } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
     try {
-        const { email, password } =  String(getQuery(event)) as { email?: string; password?: string };
+       //const { email, password } =  getQuery(event) as { email?: string; password?: string };
 
+        const { email, password } = await readBody(event);;
+        
         if(!email || !password){
             throw  createError({
                 statusCode: 400,
@@ -26,6 +28,8 @@ export default defineEventHandler(async (event) => {
             })
         }
 
+        console.log("User connected: ", data.user)
+
         return {
             message: "Succès login",
             user: data.user,
@@ -34,8 +38,8 @@ export default defineEventHandler(async (event) => {
     } catch (error) {
         console.error("Erreur login :", error);
         return createError({
-        statusCode: 500,
-        statusMessage: "Erreur lors de authentication",
+            statusCode: 500,
+            statusMessage: "Erreur lors de authentication",
         });
     }
 });
