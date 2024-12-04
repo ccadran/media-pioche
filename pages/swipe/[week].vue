@@ -22,9 +22,6 @@ if (data.value) {
     articles.value = data.value as Article[];
 }
 
-// watch(articlesStore.articles,()=>{
-//     console.log(articlesStore.articles[0].id,'test');
-// })
 
 
 const addToStore=(article: Article)=>{    
@@ -73,9 +70,16 @@ watch(currentCardIndex,()=>{
         currentCard.value = articles.value[currentCardIndex.value];
         console.log(currentCard.value);
     }
+    else{
+        navigateTo(`/recap/${week}`)
+    }
 })
 
 
+const progressWidth = computed(() => {
+  const percentage = (lectureTime.value / 15) * 100;
+  return `${Math.min(percentage, 100)}%`; // Limiter à 100%
+});
 
 
 
@@ -88,7 +92,7 @@ watch(currentCardIndex,()=>{
         <button @click="backBtn()" class="back">
             <img src="/assets/icons/back.svg" alt="">
         </button>
-        <div class="counter">
+        <div class="title counter">
             <h3>{{ `${currentCardIndex + 1} / ${articles.length}` }}</h3>
         </div>
     </div>
@@ -111,7 +115,7 @@ watch(currentCardIndex,()=>{
         <div class="lecture-time">
             <p>{{ `${lectureTime}/15min` }}</p>
             <div class="time-progress">
-                <div class="progress"></div>
+                <div class="progress" :style="{ width: progressWidth }" ></div>
             </div>
         </div>
         <button @click="addToStore(currentCard!)" class="check">
@@ -146,12 +150,12 @@ watch(currentCardIndex,()=>{
             width: 22px;
         }
     }
-    >.counter{
+    >.title{
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         background-color: black;
-        padding: 4px 12px;
+        padding: 6px 12px;
         border-radius: 12px;
         h3{
             font-family: Clash Grotesk;
@@ -175,17 +179,15 @@ watch(currentCardIndex,()=>{
     text-align: center;
     margin-bottom: 12px;
     }
-    }
-    .card{
+    >.card{
         height: 412px;
-        // position: absolute;
         background-color: #34DF77;
         border-radius: 12px;
         padding: 6px 12px 24px;
         >.img-container{
             max-height: 240px;
             height: 60%;
-            .inner{
+            >.inner{
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
@@ -209,6 +211,7 @@ watch(currentCardIndex,()=>{
         }
         &.hidden{
             display: none;
+        }
         }
     }
 
@@ -269,5 +272,4 @@ watch(currentCardIndex,()=>{
         }
     }
 }
-
 </style>
