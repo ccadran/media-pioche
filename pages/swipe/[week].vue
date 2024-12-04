@@ -55,6 +55,7 @@ const backBtn = () => {
         const isInStore = articlesStore.articles.some(article => article.id === previousCard.id);
         if (isInStore) {
             removeFromStore(previousCard);
+            lectureTime.value -= previousCard.lecture_time;
         }
         currentCardIndex.value--;
     }
@@ -109,7 +110,6 @@ watch(currentCardIndex,()=>{
         </button>
         <div class="lecture-time">
             <p>{{ `${lectureTime}/15min` }}</p>
-
             <div class="time-progress">
                 <div class="progress"></div>
             </div>
