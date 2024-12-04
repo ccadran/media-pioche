@@ -14,6 +14,8 @@ const week = route.params.week;
 
 const articles = ref<Article[]>([]);
 
+const lectureTime = ref(0);
+
 
 const { data, error } = await useFetch(`/api/articles/${week}`);
 if (data.value) {
@@ -30,6 +32,7 @@ const addToStore=(article: Article)=>{
     articlesStore.addArticle(article);
     console.log('add to store');
     console.log(articlesStore.articles, 'articles in store');
+    lectureTime.value += article.lecture_time;
     currentCardIndex.value++;
 }
 
@@ -50,13 +53,9 @@ const backBtn = () => {
     if (currentCardIndex.value > 0) {
         const previousCard = articles.value[currentCardIndex.value - 1];
         const isInStore = articlesStore.articles.some(article => article.id === previousCard.id);
-        
         if (isInStore) {
             removeFromStore(previousCard);
         }
-
-
-
         currentCardIndex.value--;
     }
 }
@@ -89,7 +88,7 @@ watch(currentCardIndex,()=>{
             <img src="/assets/icons/back.svg" alt="">
         </button>
         <div class="counter">
-            <h3>5/12</h3>
+            <h3>{{ `${currentCardIndex + 1} / ${articles.length}` }}</h3>
         </div>
     </div>
     <div class="cards-container">
@@ -109,7 +108,8 @@ watch(currentCardIndex,()=>{
             <img src="/assets/icons/cross.svg" alt="">
         </button>
         <div class="lecture-time">
-            <p>7/15min</p>
+            <p>{{ `${lectureTime}/15min` }}</p>
+
             <div class="time-progress">
                 <div class="progress"></div>
             </div>
@@ -235,6 +235,11 @@ watch(currentCardIndex,()=>{
         display: flex;
         flex-direction: column;
         align-items: center;
+        p{
+            font-family: Clash Grotesk;
+            font-size: 16px;
+            font-weight: 500;
+        }
         >.time-progress{
             background-color: black;
             height: 8px;
