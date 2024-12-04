@@ -18,23 +18,29 @@ if (Array.isArray(data.value)){
 
 if (weeks.value.length > 0) {
   mainWeek.value = weeks.value[0]; 
-  otherWeeks.value = weeks.value.slice(1); 
+  otherWeeks.value = weeks.value.slice(1);
+}
+
+
+function formatDate(date: string): string {
+  return date.slice(0, 6);
 }
 </script>
 
 
 <template>
   <div class="weeks-container">
-    <div class="main-week">
-      <h3>{{ mainWeek!.date }}</h3>
+    <NuxtLink :to="`/swipe/${mainWeek!.id}`" class="main-week">
+      <h4>{{ formatDate(mainWeek!.date )}}</h4>
       <div class="img-container">
         <img :src="mainWeek!.cover" alt="">
       </div>
-    </div>
+      <h3>Les actus de la semaine</h3>
+    </NuxtLink>
     <div class="weeks-list">
-      <div v-for="week in otherWeeks" class="week">
-        <h3>{{ week.date }}</h3>
-      </div>
+        <NuxtLink :to="`/swipe/${week.id}`" v-for="week in otherWeeks" class="week">
+          <h3>{{ formatDate(week.date) }}</h3>
+        </NuxtLink>
     </div>
   </div>
 
@@ -44,6 +50,7 @@ if (weeks.value.length > 0) {
   .weeks-container{
     display: flex;
     flex-direction: column;
+    gap: 52px;
     >.main-week{
       background-color: #34DF77;
       display: flex;
@@ -51,20 +58,45 @@ if (weeks.value.length > 0) {
       max-height: 300px;
       border-radius: 12px;
       padding: 14px;
-      h3{
+      h4{
         font-family: Clash Grotesk;
         text-transform: uppercase;
-
+        font-size: 24px;
+        line-height: 100%;
+        opacity: 0.5;
       }
       >.img-container{
         height: 100%;
         overflow: hidden;
         border-radius: 12px;
+        margin: 8px 0;
         >img{
           width: 100%;
           height: auto;
           object-fit: cover;
 
+        }
+      }
+      h3{
+        font-family: Clash Grotesk;
+        text-transform: uppercase;
+        font-size: 42px;
+        line-height: 100%;
+      }
+    }
+    >.weeks-list{
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      >.week{
+        background-color: #34DF77;
+        border-radius: 12px;
+        padding: 14px;
+        h3{
+          font-family: Clash Grotesk;
+          text-transform: uppercase;
+          font-size: 24px;
+          line-height: 100%;
         }
       }
     }

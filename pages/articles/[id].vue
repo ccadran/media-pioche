@@ -13,7 +13,9 @@ const article = ref({}) as Ref<Article>;
 
 const { data, error } = await useFetch(`/api/article/${articleId}`);
 
-article.value = data.value[0];
+if (Array.isArray(data.value)) {
+  article.value = data.value[0];
+}
 
 onMounted(() => {
   articleStore.nextArticle()
@@ -35,8 +37,8 @@ console.log(articleStore.currentIndex);
     </div>
 
     <NuxtLink :to="`/articles/${articleStore.articles[articleStore.currentIndex]?.id}`">
-  YOOO premier article
-</NuxtLink>
+     YOOO premier article
+    </NuxtLink>
 
 </template>
 
