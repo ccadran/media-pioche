@@ -3,6 +3,7 @@
 <script lang="ts" setup>
 import { useArticlesStore } from '~/stores/articles';
 import type { Article } from '~/@types/api';
+import type { suggestedArticles } from '~/@types/api';
 
 const articleStore = useArticlesStore();
 
@@ -10,11 +11,24 @@ const route = useRoute();
 const articleId = route.params.id;
 console.log(articleId);
 const article = ref({}) as Ref<Article>;
+const suggestedArticles = ref<suggestedArticles[]>([]);
 
-const { data, error } = await useFetch(`/api/article/${articleId}`);
+const { data: articleData, error: articleError } = await useFetch(`/api/article/${articleId}`);
+const { data: suggestedArticlesData, error: suggestedArticlesError } = await useFetch(`/api/suggestedArticles/${articleId}`);
+console.log(articleData);
 
-if (Array.isArray(data.value)) {
-  article.value = data.value[0];
+
+
+
+
+
+
+if (Array.isArray(articleData.value)) {
+  article.value = articleData.value[0];
+}
+
+if (Array.isArray(suggestedArticlesData.value)) {
+  suggestedArticles.value = suggestedArticlesData.value;
 }
 
 onMounted(() => {
@@ -30,18 +44,175 @@ console.log(articleStore.currentIndex);
 </script>
 
 <template>
-  <div>
-    <p>
-        {{ article.title }}
-    </p>
+    <div class="article">
+        <div class="cover">
+            <img :src="article.cover" alt="">
+        </div>
+        <h4 class="title">{{ article.title }}</h4>
+        <div class="article-content">
+            <p>{{ article.accroche }}</p>
+            <p>{{ article.paragraph1 }}</p>
+            <p :v-if="article.paragraph2">{{ article.paragraph2 }}</p>
+            <p :v-if="article.paragraph3">{{ article.paragraph3 }}</p>
+        </div>
+        <div :v-if="article.illustration" class="article-illustration">
+            <img :src="article.illustration" alt="">
+        </div>
+        <div class="article-credits">
+            <p>{{ article.author }}</p>
+            <p class="date"> - {{ article.date }}</p>
+        </div>
+        <div class="know-more">
+            <h4>Pour en savoir plus:</h4>
+            <div class="suggested-articles">
+                <NuxtLink class="suggested-article" :to="`/articles/${suggestedArticle.id}`" v-for="suggestedArticle in suggestedArticles">
+                    <div class="info">
+                        <p class="media">{{ suggestedArticle.media }}</p>
+                        <p class="date">{{ suggestedArticle.date }}</p>
+                    </div>
+                    <div class="img-container">
+                        <img :src="suggestedArticle.cover" alt="">
+                    </div>
+                    <p class="title">{{ suggestedArticle.title }}</p>
+                </NuxtLink>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <div class="infos">
+            <p>Article 5/12</p>
+            <p>7min</p>
+        </div>
+        <NuxtLink :to="`/articles/${articleStore.articles[articleStore.currentIndex]?.id}`" class="continue-reading">
+            <h3>Continuer la lecture !</h3>
+        </NuxtLink>
     </div>
 
-    <NuxtLink :to="`/articles/${articleStore.articles[articleStore.currentIndex]?.id}`">
-     YOOO premier article
-    </NuxtLink>
+    
 
 </template>
 
 <style lang="scss">
-
+.article{
+    padding-bottom: 20svh;
+    >.cover{
+        height: 260px;
+        margin-left: -20px;
+        width: 100svw;
+        >img{
+            border-radius: 0px 0px 12px 12px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    h4{
+            font-family: Satoshi;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    >.title{
+        margin-top: 24px;
+    }
+    >.article-content{
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        >p{
+            font-family: Satoshi;
+            font-size: 16px;
+            line-height: 150%;
+        }
+    }
+    >.article-illustration{
+        height: 220px;
+        >img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    >.article-credits{
+        margin-top: 34px;
+        display: flex;
+        margin-bottom: 64px;
+        font-size: 12px;
+        >.date{
+            font-weight: 700;
+        }
+    }
+    >.know-more{
+        >.suggested-articles{
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 18px;
+            >.suggested-article{
+                font-size: 12px;
+                >.info{
+                    display: flex;
+                    justify-content: space-between;
+                    >.media{
+                        font-weight: 700;
+                    }
+                }
+                >.img-container{
+                    height: 120px;
+                    margin: 4px 0;
+                    >img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 4px;
+                    }
+                }
+                .title{
+                    font-family: Satoshi;
+                    font-size: 12px;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+}
+.navigation{
+        height: 15svh;
+        width: 100%;
+        left: 0;
+        background-color: grey;
+        position: fixed;
+        bottom: 0;
+        padding: 22px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 24px 24px 0px 0px;
+        >.infos{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            >p{
+                font-family: Satoshi;
+                font-size: 14px;
+                line-height: 100%;
+                color: black;
+            }
+        }
+        >.continue-reading{
+            width: 100%;
+            background-color: black;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            color: white;
+            border-radius: 12px;
+            >h3{
+                text-align: center;
+                font-family: Clash Grotesk;
+                font-size: 22px;
+                font-weight: 700;
+            }
+    }
+}
 </style>

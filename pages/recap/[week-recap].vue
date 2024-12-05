@@ -160,7 +160,6 @@ console.log(articlesStore.articles)
                 font-family: Clash Grotesk;
                 font-size: 22px;
                 font-weight: 700;
-
             }
         }
     }
