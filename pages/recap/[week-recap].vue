@@ -101,7 +101,7 @@ console.log(articlesStore.articles)
         row-gap: 34px;
     }
     >.confirmation{
-        height: 15svh;
+        height: 20svh;
         width: 100%;
         left: 0;
         background-color: var(--grey);

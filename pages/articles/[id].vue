@@ -73,8 +73,13 @@ console.log(articleStore.currentIndex, 'testttt');
             <p>{{ `${articleStore.currentIndex}/${articleStore.articles.length}` }}</p>
             <p>{{ `${article.lecture_time}min` }}</p>
         </div>
-        <NuxtLink :to="`/articles/${articleStore.articles[articleStore.currentIndex]?.id}`" class="continue-reading">
-            <h3>Continuer la lecture !</h3>
+        <NuxtLink
+        :to="articleStore.currentIndex < articleStore.articles.length
+            ? `/articles/${articleStore.articles[articleStore.currentIndex]?.id}`
+            : '/'"
+        class="continue-reading"
+        >
+            <h3>{{ articleStore.currentIndex < articleStore.articles.length ? 'Continuer la lecture !' : "Retour à l'accueil" }}</h3>
         </NuxtLink>
     </div>
 
@@ -84,7 +89,7 @@ console.log(articleStore.currentIndex, 'testttt');
 
 <style lang="scss">
 .article{
-    padding-bottom: 20svh;
+    padding-bottom: 25svh;
     >.cover{
         height: 260px;
         margin-left: -20px;
@@ -134,7 +139,7 @@ console.log(articleStore.currentIndex, 'testttt');
     }
 }
 .read-navigation{
-        height: 15svh;
+        height: 20svh;
         width: 100%;
         left: 0;
         background-color: var(--grey);

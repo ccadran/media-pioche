@@ -129,7 +129,7 @@ const progressWidth = computed(() => {
 
 <style lang="scss">
 .swipe{
-    height: 100vh;
+    height: 100svh;
     position: relative;
 }
 .navigation{
