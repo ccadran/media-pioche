@@ -36,6 +36,14 @@ const isArticleInStore = (article: Article) => {
 };
 
 
+const totalReadingTime = computed(() => {
+  return articlesStore.articles.reduce((total, article) => total + article.lecture_time, 0);
+
+});
+
+console.log(totalReadingTime.value);
+
+
 
 
 
@@ -55,19 +63,18 @@ console.log(articlesStore.articles)
         </div>
         <h4>Sur de ton choix ?</h4>
         <div class="recap-cards-container">
-            <NuxtLink class="card" v-for="article in articles" :class="{ 'in-store': isArticleInStore(article) }" 
-            @click="isArticleInStore(article)? removeArticleFromStore(article) : addArticleToStore(article)" >
-                <img :src="article.cover" alt="" class="cover">
-                <div class="toggle-btn">
-                    <img v-if="isArticleInStore(article)" src="/assets/icons/add.svg" alt="" class="add">
-                    <img v-if="!isArticleInStore(article)" src="/assets/icons/minus.svg" alt="remove">
-                </div>
-            </NuxtLink>
+            <RecapCard
+                v-for="article in articles"
+                :key="article.id"
+                :article="article"
+                :isInStore="isArticleInStore(article)"
+                :onToggle="() => (isArticleInStore(article) ? removeArticleFromStore(article) : addArticleToStore(article))"
+            />
         </div>
         <div class="confirmation">
             <div class="confirmation-info">
-                <p>5 articles séléctionnés</p>
-                <p>7min de lectures</p>
+                <p>{{ `${articlesStore.articles.length} articles` }}</p>
+                <p>{{`${totalReadingTime}min de lecture`}}</p>
             </div>
             <NuxtLink :to="`/articles/${articlesStore.articles[currentArticle]?.id}`" class="confirmation-btn">
                 <h3>Commencer la lecture !</h3>
@@ -92,38 +99,6 @@ console.log(articlesStore.articles)
         grid-template-columns: 1fr 1fr;
         column-gap: 18px;
         row-gap: 34px;
-        >.card{
-            background-color: green;
-            height: 104px;
-            border-radius: 8px;
-            position: relative;
-            >.cover{
-                border-radius: 8px;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-        }
-        >.toggle-btn{
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--black);
-            border-radius: 50%;
-            top: -15px;
-            left: -10px;
-            >img{
-                width: 15px;
-                height: 15px;
-                
-            }
-        }
-        &.in-store{
-            filter: grayscale(1);
-        }
-    }
     }
     >.confirmation{
         height: 15svh;

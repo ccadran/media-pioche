@@ -36,7 +36,7 @@ onMounted(() => {
   console.log(articleStore.currentIndex);
 })
 
-console.log(articleStore.currentIndex);
+console.log(articleStore.currentIndex, 'testttt');
 
 
 
@@ -78,10 +78,10 @@ console.log(articleStore.currentIndex);
             </div>
         </div>
     </div>
-    <div class="navigation">
+    <div class="read-navigation">
         <div class="infos">
-            <p>Article 5/12</p>
-            <p>7min</p>
+            <p>{{ `${articleStore.currentIndex}/${articleStore.articles.length}` }}</p>
+            <p>{{ `${article.lecture_time}min` }}</p>
         </div>
         <NuxtLink :to="`/articles/${articleStore.articles[articleStore.currentIndex]?.id}`" class="continue-reading">
             <h3>Continuer la lecture !</h3>
@@ -176,7 +176,7 @@ console.log(articleStore.currentIndex);
         }
     }
 }
-.navigation{
+.read-navigation{
         height: 15svh;
         width: 100%;
         left: 0;

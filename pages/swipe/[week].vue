@@ -88,45 +88,34 @@ const progressWidth = computed(() => {
 
 <template>
     <div class="swipe">
-    <div class="navigation">
+      <div class="navigation">
         <button @click="backBtn()" class="back">
-            <img src="/assets/icons/back.svg" alt="">
+          <img src="/assets/icons/back.svg" alt="">
         </button>
         <div class="title counter">
-            <h3>{{ `${currentCardIndex + 1} / ${articles.length}` }}</h3>
+          <h3>{{ `${currentCardIndex + 1} / ${articles.length}` }}</h3>
         </div>
-    </div>
-    <div class="cards-container">
+      </div>
+      <div class="cards-container">
         <h4>Pioche tes cartes !</h4>
-        <div class="card" v-for="(card, index) in articles" :key="card.id" :class="{ 'hidden': index < currentCardIndex }">
-            <div class="img-container">
-                <img :src="card.cover" alt="" class="inner">
-            </div>
-            <div class="card-text">
-                <h4>{{ card.title }}</h4>
-                <p>{{ card.accroche }}</p>
-            </div>
-        </div>
+        <SwipeCard
+          v-for="(card, index) in articles"
+          :key="card.id"
+          :card="card"
+          :hidden="index < currentCardIndex"
+        />
+      </div>
+      <SwipeChoices
+      :lectureTime="lectureTime"
+      :progressWidth="progressWidth"
+      :onSkip="skipArticle"
+      :onAddToStore="() => addToStore(currentCard!)"
+    />
+      <NuxtLink :to="`/articles/${articlesStore.articles[currentArticle]?.id}`">
+        YOOO premier article
+      </NuxtLink>
     </div>
-    <div class="choices">
-        <button @click="skipArticle()" class="denied">
-            <img src="/assets/icons/cross.svg" alt="">
-        </button>
-        <div class="lecture-time">
-            <p>{{ `${lectureTime}/15min` }}</p>
-            <div class="time-progress">
-                <div class="progress" :style="{ width: progressWidth }" ></div>
-            </div>
-        </div>
-        <button @click="addToStore(currentCard!)" class="check">
-            <img src="/assets/icons/check.svg" alt="">
-        </button>
-    </div>
-    <NuxtLink :to="`/articles/${articlesStore.articles[currentArticle]?.id}`">
-     YOOO premier article
-    </NuxtLink>
-</div>
-</template>
+  </template>
 
 
 <style lang="scss">
@@ -179,97 +168,6 @@ const progressWidth = computed(() => {
     text-align: center;
     margin-bottom: 12px;
     }
-    >.card{
-        height: 412px;
-        background-color: #34DF77;
-        border-radius: 12px;
-        padding: 6px 12px 24px;
-        >.img-container{
-            max-height: 240px;
-            height: 60%;
-            >.inner{
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
-        >.card-text{
-            margin-top: 22px;
-            height: 40%;
-            h4{
-                margin-bottom: 12px;
-                font-family: Satoshi;
-                font-weight: 700;
-                font-size: 18px;
-                line-height: 100%;
-            }
-            p{
-                font-family: Satoshi;
-                font-size: 16px;
-                font-weight: 400;
-            }
-        }
-        &.hidden{
-            display: none;
-        }
-        }
-    }
-
-
-
-.choices{
-    display: flex;
-    position: absolute;
-    bottom: 54px;
-    justify-content: space-between;
-    width: 100%;
-    >.denied{
-        background-color: var(--black);
-        height: 65px;
-        width: 65px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        >img{
-            width: 22px;
-        }
-    }
-    >.lecture-time{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        p{
-            font-family: Clash Grotesk;
-            font-size: 16px;
-            font-weight: 500;
-        }
-        >.time-progress{
-            background-color: var(--black);
-            height: 8px;
-            border-radius: 4px;
-            margin-top: 8px;
-            width: 168px;
-            >.progress{
-                background-color: var(--white);
-                height: 100%;
-                width: 50%;
-                border-radius: 4px;
-            }
-        }
-    }
-
-
-    >.check{
-        background-color: var(--black);
-        height: 65px;
-        width: 65px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        >img{
-            width: 30px;
-        }
-    }
 }
+
 </style>
