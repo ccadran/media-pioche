@@ -53,7 +53,8 @@ const backBtn = () => {
       gsap.to(`.card[data-index="${currentCardIndex.value-1}"]`, {
             x: 0,
             duration: 0.5,
-            ease: 'power2.out'
+            ease: 'power2.out',
+            scale: 1,
         });
         const previousCard = articles.value[currentCardIndex.value - 1];
         const isInStore = articlesStore.articles.some(article => article.id === previousCard.id);
@@ -111,7 +112,6 @@ const progressWidth = computed(() => {
           v-for="(card, index) in articles"
           :key="card.id"
           :card="card"
-          :hidden="index < currentCardIndex"
           :index="index"
           :onSkip="skipArticle"
           :onAddToStore="() => addToStore(currentCard!)"
@@ -123,9 +123,6 @@ const progressWidth = computed(() => {
       :onSkip="skipArticle"
       :onAddToStore="() => addToStore(currentCard!)"
     />
-      <NuxtLink :to="`/articles/${articlesStore.articles[currentArticle]?.id}`">
-        YOOO premier article
-      </NuxtLink>
     </div>
   </template>
 

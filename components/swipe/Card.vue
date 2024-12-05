@@ -15,10 +15,6 @@ const props = defineProps({
     type: Object as () => Article,
     required: true,
   },
-  hidden: {
-    type: Boolean,
-    default: false,
-  },
   onSkip: {
     type: Function,
     required: true,
@@ -33,19 +29,30 @@ const props = defineProps({
   },
 });
 
+let zIndex = props.index
+
 
 onMounted(() => {
   Draggable.create('.card', {
     type: 'x',
     inertia: true, 
+    onDragStart(){
+      gsap.to(this.target, {
+        duration: 0.5,
+        scale: 0.8,
+        zIndex: 1000,
+      });
+    },
     onDragEnd() {
       console.log('Dragged:', this.target); 
+      
       if(this.endX >100){
         console.log('right');
         gsap.to(this.target, {
           x: 600,
           duration: 0.5,
           ease: 'power2.out',
+
         });
         props.onAddToStore();
       }else if(this.endX < -100){
@@ -54,8 +61,17 @@ onMounted(() => {
           x: -600,
           duration: 0.5,
           ease: 'power2.out',
+
         });
         props.onSkip();
+      }else{
+        gsap.to(this.target, {
+          x: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+          scale: 1,
+
+        });
       }
       
     },
@@ -69,7 +85,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="card" :class="{ hidden }" :key="index" :style="{ zIndex: 1000 - index }" :data-index="index" >
+  <div class="card" :key="index" :style="{ zIndex: 1000 - zIndex }" :data-index="index" >
     <div class="img-container">
       <img :src="card.cover" alt="" class="inner">
     </div>
