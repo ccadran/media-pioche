@@ -10,49 +10,49 @@ definePageMeta({
 
 const route = useRoute();
 
-const week = route.params.week; 
+const articleId = route.params.id; 
 
-console.log(week);
+console.log(articleId);
 
-const articles = ref<Article[]>([]);
+const article = ref({}) as Ref<Article>;
 
-const { data, error } = await useFetch<Article[]>(`/api/articles/${week}`);
+const { data, error } = await useFetch<Article>(`/api/article/${articleId}`);
 
-articles.value = data.value ?? [];
+article.value = data.value[0] ?? [];
 
-console.log(articles.value);
-
-const modal = ref(false)
+console.log("caca", article.value);
 
 const state = reactive({
-    cover: '',
-    title: '',
-    paragraph1: '',
-    paragraph2: '',
-    paragraph3: '',
-    author: '',
-    lecture_time: '',
-    //weekId: '',
-    theme: '',
-    accroche: '',
-    illustration: '',
-    date: '',
+    cover: article.value.cover || '',
+    title: article.value.title || '',
+    paragraph1: article.value.paragraph1 || '',
+    paragraph2: article.value.paragraph2 || '',
+    paragraph3: article.value.paragraph3 || '',
+    author: article.value.author || '',
+    lecture_time: article.value.lecture_time || '',
+    theme: article.value.theme || '',
+    accroche: article.value.accroche || '',
+    illustration: article.value.illustration || '',
+    date: article.value.date || '',
 });
 
-function openModal(){
+console.log("that's my title in reactive state", state.paragraph1)
+
+
+/* function openModal(){
     if(!modal.value){
         modal.value = true
     } else{
         modal.value = false
     }
-}
+} */
 
 const onSubmit = async (event: Event) => {
     event.preventDefault()
 
     console.log('Form Data:', state)
     try{
-        const response = await $fetch('/api/createArticle', {
+        const response = await $fetch('/api/editArticle', {
             method: 'POST',
             body: {
                 cover: state.cover,
@@ -62,7 +62,7 @@ const onSubmit = async (event: Event) => {
                 paragraph3: state.paragraph3,
                 author: state.author,
                 lecture_time: state.lecture_time,
-                weekId: week,
+                articleId: articleId,
                 theme: state.theme,
                 accroche: state.accroche,
                 illustration: state.illustration,
@@ -73,34 +73,11 @@ const onSubmit = async (event: Event) => {
         // Update user dynamically if part of the response
         if (response) {
             console.log("Insert success:", response);
-            console.log("Articles", articles.value)
             //weeks.value = response.week   //faut faire un push dans l'array du weeks.value pour ainsi remount la page
-            articles.value.push(response.article[0]);
+            article.value = response.article[0];
         }
     } catch(error){
         console.log("Failed insert : ", error)
-    }
-}
-
-const deleteArticle = async (article:number) => {
-    try{
-        const response = await $fetch('/api/deleteArticle', {
-            method: 'POST',
-            body: {
-                articleId: article,
-                weekId: week
-            },
-        });
-
-        // Update user dynamically if part of the response
-        if (response) {
-            console.log("Delete success:", response);
-            console.log("Articles", articles.value)
-            //weeks.value = response.week   //faut faire un push dans l'array du weeks.value pour ainsi remount la page
-            articles.value = response.articles;
-        }
-    } catch(error){
-        console.log("Failed surpression : ", error)
     }
 }
 
@@ -111,17 +88,16 @@ const deleteArticle = async (article:number) => {
 <template>
     <div>
         <h1>Admin</h1>
-        <h2>Articles</h2>
-        <button @click="openModal" class="btn">Create Article</button>
-        <ul>
-            <li v-for="article in articles" :key="article.id">
-                <nuxt-link :to="`/admin/article/${article.id}`">{{ article.title }}</nuxt-link>
-                <button @click="deleteArticle(article.id)" class="btn close">Delete</button>
-            </li>
-        </ul>
+        <h2>Article</h2>
+        <!-- <button @click="openModal" class="btn">Edit</button>
+
+        <div>
+            <h2>{{ article.title }}</h2>
+        </div> -->
+
     </div>
-    <div v-if="modal" class="form-div">
-        <button @click="openModal" class="btn close">Close</button>
+    <div class="form-div">
+        <!-- <button @click="openModal" class="btn close">Close</button> -->
         <form @submit="onSubmit" class="form-container">
             <!-- Cover -->
             <div class="form-group">

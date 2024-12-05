@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { User } from '@supabase/supabase-js';
 import { reactive } from 'vue'
 
 const state = reactive({
@@ -47,7 +48,7 @@ const onSubmit = async (event: Event) => {
             if (response) {
                 console.log("Login success:", response);
                 user.value = response.user
-                navigateTo('/admin')
+                //navigateTo('/admin')
             }
 
             /* if(error){

@@ -1,17 +1,24 @@
 import { serverSupabaseClient } from "#supabase/server";
+import type { Week } from "~/@types/api";
+
 
 export default defineEventHandler(async (event) => {
     try {
-        const { email, password } = await readBody(event);;
+        const { cover, date } = await readBody<{ cover: string; date: string }>(event);
         
-        if(!email || !password){
+        if(!cover || !date){
             throw  createError({
                 statusCode: 400,
-                statusMessage: "Email et MDP requis"
+                statusMessage: "Cover et Date requis"
             })
         }
         
         const supabase = await serverSupabaseClient(event);
+
+        const { data, error } = await supabase
+            .from('week')
+            .insert<Week>({cover: cover, date: date})
+            .select()
 
         if(error){
             throw createError({
@@ -21,15 +28,15 @@ export default defineEventHandler(async (event) => {
         }
 
         return {
-            message: "Succès creation article",
-
+            message: "Succès creation semaine",
+            week: data
         };
 
     } catch (error) {
-        console.error("Erreur creation article :", error);
+        console.error("Erreur creation semaine :", error);
         return createError({
             statusCode: 500,
-            statusMessage: "Erreur lors de la creation d'article",
+            statusMessage: "Erreur lors de la creation de semaine",
         });
     }
 });
