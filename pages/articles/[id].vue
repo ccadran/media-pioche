@@ -5,6 +5,7 @@ import { useArticlesStore } from '~/stores/articles';
 import type { Article } from '~/@types/api';
 import type { suggestedArticles } from '~/@types/api';
 
+
 const articleStore = useArticlesStore();
 
 const route = useRoute();
@@ -63,19 +64,8 @@ console.log(articleStore.currentIndex, 'testttt');
             <p class="date"> - {{ article.date }}</p>
         </div>
         <div class="know-more">
-            <h4>Pour en savoir plus:</h4>
-            <div class="suggested-articles">
-                <NuxtLink class="suggested-article" :to="`/articles/${suggestedArticle.id}`" v-for="suggestedArticle in suggestedArticles">
-                    <div class="info">
-                        <p class="media">{{ suggestedArticle.media }}</p>
-                        <p class="date">{{ suggestedArticle.date }}</p>
-                    </div>
-                    <div class="img-container">
-                        <img :src="suggestedArticle.cover" alt="">
-                    </div>
-                    <p class="title">{{ suggestedArticle.title }}</p>
-                </NuxtLink>
-            </div>
+            <h4>Pour en savoir plus:</h4>  
+            <ArticleSuggestedArticles :suggestedArticles="suggestedArticles" />
         </div>
     </div>
     <div class="read-navigation">
@@ -140,39 +130,6 @@ console.log(articleStore.currentIndex, 'testttt');
         font-size: 12px;
         >.date{
             font-weight: 700;
-        }
-    }
-    >.know-more{
-        >.suggested-articles{
-            margin-top: 18px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            column-gap: 18px;
-            >.suggested-article{
-                font-size: 12px;
-                >.info{
-                    display: flex;
-                    justify-content: space-between;
-                    >.media{
-                        font-weight: 700;
-                    }
-                }
-                >.img-container{
-                    height: 120px;
-                    margin: 4px 0;
-                    >img{
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        border-radius: 4px;
-                    }
-                }
-                .title{
-                    font-family: Satoshi;
-                    font-size: 12px;
-                    font-weight: 700;
-                }
-            }
         }
     }
 }
