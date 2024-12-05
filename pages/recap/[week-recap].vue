@@ -110,7 +110,7 @@ console.log(articlesStore.articles)
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: black;
+            background-color: var(--black);
             border-radius: 50%;
             top: -15px;
             left: -10px;
@@ -129,7 +129,7 @@ console.log(articlesStore.articles)
         height: 15svh;
         width: 100%;
         left: 0;
-        background-color: rgba(128, 128, 128, 0.543);
+        background-color: var(--grey);
         position: absolute;
         bottom: 0;
         padding: 22px 20px;
@@ -144,16 +144,15 @@ console.log(articlesStore.articles)
                 font-family: Satoshi;
                 font-size: 14px;
                 line-height: 100%;
-                color: black;
             }
         }
         >.confirmation-btn{
             width: 100%;
-            background-color: black;
+            background-color: var(--black);
             padding: 12px;
             display: flex;
             justify-content: center;
-            color: white;
+            color: var(--white);
             border-radius: 12px;
             >h3{
                 text-align: center;

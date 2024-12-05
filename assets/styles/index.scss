@@ -10,6 +10,7 @@ body{
     padding: 0 20px;
     height: 100vh;
     font-family: Satoshi;
+    color: var(--black);
 }
 
 a{
@@ -21,6 +22,19 @@ button,.back{
     justify-content: center;
     align-items: center;
 }
+
+:root {
+    --purple: #9D6EFF;
+    --yellow: #FFEB5A;
+    --pink: #FFAAF5;
+    --green: #34DF77;
+    --blue: #427EFF;
+    --red: #FF5858;
+    --white: #FFFFFF;
+    --dark: #303030;
+    --black: #000000;
+    --grey: #D9D9D9;
+  }
 
 @font-face{
     font-family: 'Clash Grotesk';

@@ -140,7 +140,7 @@ const progressWidth = computed(() => {
     position: relative;
     align-items: center;
     >.back{
-        background-color: black;
+        background-color: var(--black);
         height: 50px;
         width: 50px;
         border-radius: 25px;
@@ -154,14 +154,14 @@ const progressWidth = computed(() => {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        background-color: black;
+        background-color: var(--black);
         padding: 6px 12px;
         border-radius: 12px;
         h3{
             font-family: Clash Grotesk;
             font-size: 34px;
             line-height: 100%;
-            color: white;
+            color: var(--white);
         }
     }
 }
@@ -224,7 +224,7 @@ const progressWidth = computed(() => {
     justify-content: space-between;
     width: 100%;
     >.denied{
-        background-color: black;
+        background-color: var(--black);
         height: 65px;
         width: 65px;
         border-radius: 50%;
@@ -244,13 +244,13 @@ const progressWidth = computed(() => {
             font-weight: 500;
         }
         >.time-progress{
-            background-color: black;
+            background-color: var(--black);
             height: 8px;
             border-radius: 4px;
             margin-top: 8px;
             width: 168px;
             >.progress{
-                background-color: white;
+                background-color: var(--white);
                 height: 100%;
                 width: 50%;
                 border-radius: 4px;
@@ -260,7 +260,7 @@ const progressWidth = computed(() => {
 
 
     >.check{
-        background-color: black;
+        background-color: var(--black);
         height: 65px;
         width: 65px;
         border-radius: 50%;

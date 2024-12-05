@@ -180,7 +180,7 @@ console.log(articleStore.currentIndex);
         height: 15svh;
         width: 100%;
         left: 0;
-        background-color: grey;
+        background-color: var(--grey);
         position: fixed;
         bottom: 0;
         padding: 22px 20px;
@@ -196,16 +196,16 @@ console.log(articleStore.currentIndex);
                 font-family: Satoshi;
                 font-size: 14px;
                 line-height: 100%;
-                color: black;
+
             }
         }
         >.continue-reading{
             width: 100%;
-            background-color: black;
+            background-color: var(--black);
             padding: 12px;
             display: flex;
             justify-content: center;
-            color: white;
+            color: var(--white);
             border-radius: 12px;
             >h3{
                 text-align: center;
