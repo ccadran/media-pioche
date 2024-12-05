@@ -13,11 +13,11 @@ defineProps({
     required: true,
   },
   onSkip: {
-    type: Function as () => void,
+    type: Function,
     required: true,
   },
   onAddToStore: {
-    type: Function as () => void,
+    type: Function,
     required: true,
   },
 });

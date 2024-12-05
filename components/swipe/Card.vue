@@ -1,8 +1,16 @@
 <script lang="ts" setup>
 import type { Article } from '~/@types/api';
+import gsap from 'gsap';
+import { Draggable } from 'gsap/Draggable';
+gsap.registerPlugin(Draggable);
 
-// Définition des props
-defineProps({
+
+
+
+
+
+
+const props = defineProps({
   card: {
     type: Object as () => Article,
     required: true,
@@ -11,11 +19,57 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  onSkip: {
+    type: Function,
+    required: true,
+  },
+  onAddToStore: {
+    type: Function,
+    required: true,
+  },
+  index: {
+    type: Number,
+    required: true,
+  },
 });
+
+
+onMounted(() => {
+  Draggable.create('.card', {
+    type: 'x',
+    inertia: true, 
+    onDragEnd() {
+      console.log('Dragged:', this.target); 
+      if(this.endX >100){
+        console.log('right');
+        gsap.to(this.target, {
+          x: 600,
+          duration: 0.5,
+          ease: 'power2.out',
+        });
+        props.onAddToStore();
+      }else if(this.endX < -100){
+        console.log('left');
+        gsap.to(this.target, {
+          x: -600,
+          duration: 0.5,
+          ease: 'power2.out',
+        });
+        props.onSkip();
+      }
+      
+    },
+  });
+});
+
+
+
+
+
 </script>
 
 <template>
-  <div class="card" :class="{ hidden }">
+  <div class="card" :class="{ hidden }" :key="index" :style="{ zIndex: 1000 - index }" :data-index="index" >
     <div class="img-container">
       <img :src="card.cover" alt="" class="inner">
     </div>
@@ -32,6 +86,8 @@ defineProps({
   background-color: #34DF77;
   border-radius: 12px;
   padding: 6px 12px 24px;
+  position: absolute;
+  width: 100%;
   > .img-container {
     max-height: 240px;
     height: 60%;

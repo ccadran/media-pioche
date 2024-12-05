@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import {useArticlesStore} from '~/stores/articles';
 import type { Article } from '~/@types/api';
+import gsap from 'gsap';
 
 const route = useRoute();
 
@@ -45,9 +46,15 @@ const removeFromStore=(article: Article)=>{
 
 
 
-const backBtn = () => {
 
+
+const backBtn = () => {
     if (currentCardIndex.value > 0) {
+      gsap.to(`.card[data-index="${currentCardIndex.value-1}"]`, {
+            x: 0,
+            duration: 0.5,
+            ease: 'power2.out'
+        });
         const previousCard = articles.value[currentCardIndex.value - 1];
         const isInStore = articlesStore.articles.some(article => article.id === previousCard.id);
         if (isInStore) {
@@ -55,6 +62,8 @@ const backBtn = () => {
             lectureTime.value -= previousCard.lecture_time;
         }
         currentCardIndex.value--;
+    }else{
+        navigateTo(`/`)
     }
 }
 
@@ -103,6 +112,9 @@ const progressWidth = computed(() => {
           :key="card.id"
           :card="card"
           :hidden="index < currentCardIndex"
+          :index="index"
+          :onSkip="skipArticle"
+          :onAddToStore="() => addToStore(currentCard!)"
         />
       </div>
       <SwipeChoices
