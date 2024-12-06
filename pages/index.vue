@@ -31,6 +31,8 @@ function formatDate(date: string): string {
 
 <template>
   <div class="weeks-container">
+    <img src="/assets/icons/logo.svg" alt="" class="logo">
+
     <HomeMainWeek :mainWeek="mainWeek!" />
     <HomeWeekList :weeks="otherWeeks" />
   </div>
@@ -41,7 +43,11 @@ function formatDate(date: string): string {
   .weeks-container{
     display: flex;
     flex-direction: column;
-    gap: 52px;
+
+    >.logo{
+      width: 32px;
+      margin-bottom: 12px;
+    }
 }
 
 </style>

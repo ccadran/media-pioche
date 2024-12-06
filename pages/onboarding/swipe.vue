@@ -4,11 +4,22 @@
 
 <template>
     <div class="objectifs">
-        <img src="/assets/icons/logo.svg" alt="" class="logo">
-        <h4>Swipe à droite les actus que tu souhaites lire</h4>
-        <h4>Et à gauche si ça ne t’intéresse pas.</h4>
-        <video src="" class="objectifs-video"></video>
-        <NuxtLink to="/onboarding/objectifs" class="btn-onboarding" >
+        <div class="intro">
+
+            <img src="/assets/icons/logo.svg" alt="" class="logo">
+            <div class="text">
+                
+                <h4>Swipe à droite les actus que tu souhaites lire</h4>
+                <h4>Et à gauche si ça ne t’intéresse pas.</h4>
+            </div>
+        </div>
+        <video 
+            src="/assets/videos/Mano_slide.mp4" 
+            class="objectifs-video"
+            autoplay 
+            muted
+            loop
+        ></video>        <NuxtLink to="/onboarding/objectifs" class="btn-onboarding" >
             <h3>J'ai compris !</h3>
         </NuxtLink>
 
@@ -23,17 +34,28 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 22px 0;
-    >.logo{
-        width: 32px;
-    }
-    >h4{
-        font-family: Clash Grotesk;
-        font-weight: 500;
-        font-size: 22px;
-        text-align: center;
+    >.intro{
+
+        >.logo{
+            width: 32px;
+        }
+        >.text{
+            
+            >h4{
+                font-family: Clash Grotesk;
+                font-weight: 500;
+                font-size: 22px;
+                text-align: center;
+            }
+        }
     }
     .objectifs-video{
-        height: 70svh;
+        z-index: -1;
+
+        width: 100vw;
+        position: fixed;
+        top: 15svh;
+        left: 0;
     }
 
     >.btn-onboarding{

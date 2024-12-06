@@ -42,13 +42,13 @@ function formatDate(dateString: string): string {
   .week {
     background-color: var(--grey);
     border-radius: 12px;
-    padding: 14px;
     display: grid;
     grid-template-columns: repeat(2,50%);
     align-items: center;
     width: 100%;
     max-height: 100%;
     >.date{
+      padding: 14px;
         h3 {
             font-family: Clash Grotesk;
             text-transform: uppercase;
