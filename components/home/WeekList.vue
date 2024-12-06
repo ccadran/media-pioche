@@ -47,6 +47,7 @@ function formatDate(dateString: string): string {
     align-items: center;
     width: 100%;
     max-height: 100%;
+    height: 100px;
     >.date{
       padding: 14px;
         h3 {
@@ -62,7 +63,7 @@ function formatDate(dateString: string): string {
     }
     .cover{
         width: 100%;
-        height: 72px;
+        height: 100px;
         img{
             height: 100%;
             width: 100%;

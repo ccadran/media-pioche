@@ -78,7 +78,7 @@ defineProps({
       margin-top: 8px;
       width: 168px;
       > .progress {
-        background-color: var(--white);
+        background-color: var(--grey);
         height: 100%;
         border-radius: 4px;
       }

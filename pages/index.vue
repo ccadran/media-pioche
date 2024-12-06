@@ -14,7 +14,7 @@ const mainWeek = ref<Week>();
 const otherWeeks = ref<Week[]>([]);
 
 if (Array.isArray(data.value)){
-  weeks.value = data.value;
+  weeks.value = data.value.reverse(); 
 }
 
 

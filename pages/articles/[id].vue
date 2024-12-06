@@ -35,9 +35,25 @@ if (Array.isArray(suggestedArticlesData.value)) {
 onMounted(() => {
   articleStore.nextArticle()
   console.log(articleStore.currentIndex);
+  console.log(article);
+  
 })
 
 console.log(articleStore.currentIndex, 'testttt');
+
+const getBackgroundColor = (theme: string): string => {
+  const themeColors: Record<string, string> = {
+    justice: 'var(--purple)',
+    sport: 'var(--yellow)',
+    culture: 'var(--pink)',
+    environnement: 'var(--green)',
+    autre: 'var(--blue)',
+    politique: 'var(--red)',
+  };
+
+  return themeColors[theme.toLowerCase()] || 'var(--default-color)';
+};
+
 
 
 
@@ -46,18 +62,18 @@ console.log(articleStore.currentIndex, 'testttt');
 
 <template>
     <div class="article">
-        <div class="cover">
+        <div class="cover" :style="{ backgroundColor: getBackgroundColor(article.theme) }">
             <img :src="article.cover" alt="">
         </div>
         <h4 class="title">{{ article.title }}</h4>
         <div class="article-content">
             <p>{{ article.accroche }}</p>
             <p>{{ article.paragraph1 }}</p>
-            <p :v-if="article.paragraph2">{{ article.paragraph2 }}</p>
-            <p :v-if="article.paragraph3">{{ article.paragraph3 }}</p>
+            <p v-if="article.paragraph2">{{ article.paragraph2 }}</p>
+            <p v-if="article.paragraph3">{{ article.paragraph3 }}</p>
         </div>
-        <div :v-if="article.illustration" class="article-illustration">
-            <img :src="article.illustration" alt="">
+        <div v-if="article.illustration" class="article-illustration">
+            <img  :src="article.illustration" alt="">
         </div>
         <div class="article-credits">
             <p>{{ article.author }}</p>
@@ -94,11 +110,13 @@ console.log(articleStore.currentIndex, 'testttt');
         height: 260px;
         margin-left: -20px;
         width: 100svw;
+        border-radius: 0px 0px 12px 12px;
+
         >img{
             border-radius: 0px 0px 12px 12px;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
     }
     h4{
