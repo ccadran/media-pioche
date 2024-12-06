@@ -4,6 +4,7 @@ import { useArticlesStore } from '~/stores/articles';
 import type { Week } from '~/@types/api';
 
 
+
 const { data, error } = await useFetch('/api/week');
 
 

@@ -24,7 +24,7 @@ export interface suggestedArticles {
 }
 
 export interface Week {
-  id: number;
+  id?: number;
   cover: string;
   date: string;
 }
