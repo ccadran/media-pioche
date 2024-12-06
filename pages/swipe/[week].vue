@@ -30,8 +30,6 @@ articles.value.forEach(article => {
 });
 
 
-
-
 const addToStore=(article: Article)=>{    
 
     articlesStore.addArticle(article);
