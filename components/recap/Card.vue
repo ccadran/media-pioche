@@ -2,7 +2,7 @@
 import { defineProps } from 'vue';
 import type { Article } from '~/@types/api';
 
-// Déclarez les props pour recevoir les données et fonctions nécessaires
+
 defineProps({
   article: {
     type: Object as () => Article,
@@ -20,7 +20,7 @@ defineProps({
 </script>
 
 <template>
-  <NuxtLink class="card" :class="{ 'in-store': isInStore }" @click="onToggle">
+  <NuxtLink class="card" :class="{ 'in-store': !isInStore }" @click="onToggle">
     <img :src="article.cover" alt="" class="cover" />
     <div class="toggle-btn">
       <img v-if="isInStore" src="/assets/icons/minus.svg" alt="remove" class="remove" />

@@ -2,12 +2,14 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import {useArticlesStore} from '~/stores/articles';
+import { useReadingTimeStore } from '~/stores/readingTime';
 import type { Article } from '~/@types/api';
 import gsap from 'gsap';
 
 const route = useRoute();
 
 const articlesStore = useArticlesStore();
+const readingTimeStore = useReadingTimeStore();
 
 
 const week = route.params.week;
@@ -23,6 +25,9 @@ if (data.value) {
     articles.value = data.value as Article[];
 }
 
+articles.value.forEach(article => {
+  console.log(article.theme);
+});
 
 
 const addToStore=(article: Article)=>{    
@@ -32,10 +37,23 @@ const addToStore=(article: Article)=>{
     console.log(articlesStore.articles, 'articles in store');
     lectureTime.value += article.lecture_time;
     currentCardIndex.value++;
+
+    gsap.to(`.card[data-index="${currentCardIndex.value-1}"]`, {
+            x: 600,
+            duration: 1,
+            ease: 'power2.out',
+            scale: 0.8,
+        });
 }
 
 const skipArticle=()=>{
     currentCardIndex.value++;
+    gsap.to(`.card[data-index="${currentCardIndex.value-1}"]`, {
+            x: -600,
+            duration: 1,
+            ease: 'power2.out',
+            scale: 0.8,
+        });
 }
 
 
@@ -87,9 +105,23 @@ watch(currentCardIndex,()=>{
 
 
 const progressWidth = computed(() => {
-  const percentage = (lectureTime.value / 15) * 100;
+  const percentage = (lectureTime.value / readingTimeStore.readingTime) * 100;
   return `${Math.min(percentage, 100)}%`; // Limiter à 100%
 });
+
+
+const getBackgroundColor = (theme: string): string => {
+  const themeColors: Record<string, string> = {
+    justice: 'var(--purple)',
+    sport: 'var(--yellow)',
+    culture: 'var(--pink)',
+    environnement: 'var(--green)',
+    autre: 'var(--blue)',
+    politique: 'var(--red)',
+  };
+
+  return themeColors[theme.toLowerCase()] || 'var(--default-color)';
+};
 
 
 
@@ -115,6 +147,8 @@ const progressWidth = computed(() => {
           :index="index"
           :onSkip="skipArticle"
           :onAddToStore="() => addToStore(currentCard!)"
+          :style="{ backgroundColor: getBackgroundColor(card.theme) }"
+
         />
       </div>
       <SwipeChoices
@@ -122,6 +156,7 @@ const progressWidth = computed(() => {
       :progressWidth="progressWidth"
       :onSkip="skipArticle"
       :onAddToStore="() => addToStore(currentCard!)"
+      :read_target="readingTimeStore.readingTime"
     />
     </div>
   </template>

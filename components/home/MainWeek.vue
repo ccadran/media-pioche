@@ -55,6 +55,7 @@ onMounted(() => {
   max-height: 340px;
   border-radius: 12px;
   padding: 14px;
+  margin-bottom: 52px;
   h4 {
     font-family: Clash Grotesk;
     text-transform: uppercase;

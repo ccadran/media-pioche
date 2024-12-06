@@ -41,7 +41,19 @@ const totalReadingTime = computed(() => {
 
 });
 
-console.log(totalReadingTime.value);
+const getBackgroundColor = (theme: string): string => {
+  const themeColors: Record<string, string> = {
+    justice: 'var(--purple)',
+    sport: 'var(--yellow)',
+    culture: 'var(--pink)',
+    environnement: 'var(--green)',
+    autre: 'var(--blue)',
+    politique: 'var(--red)',
+  };
+
+  return themeColors[theme.toLowerCase()] || 'var(--default-color)';
+};
+
 
 
 
@@ -69,6 +81,8 @@ console.log(articlesStore.articles)
                 :article="article"
                 :isInStore="isArticleInStore(article)"
                 :onToggle="() => (isArticleInStore(article) ? removeArticleFromStore(article) : addArticleToStore(article))"
+                :style="{ backgroundColor: getBackgroundColor(article.theme) }"
+
             />
         </div>
         <div class="confirmation">
@@ -99,13 +113,14 @@ console.log(articlesStore.articles)
         grid-template-columns: 1fr 1fr;
         column-gap: 18px;
         row-gap: 34px;
+        padding-bottom: 25svh;
     }
     >.confirmation{
         height: 20svh;
         width: 100%;
         left: 0;
         background-color: var(--grey);
-        position: absolute;
+        position: fixed;
         bottom: 0;
         padding: 22px 20px;
         display: flex;

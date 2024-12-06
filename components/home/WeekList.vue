@@ -55,13 +55,15 @@ onMounted(() => {
   .week {
     background-color: var(--grey);
     border-radius: 12px;
-    padding: 14px;
     display: grid;
     grid-template-columns: repeat(2,50%);
     align-items: center;
     width: 100%;
-    //max-height: 100%;
+
+    height: 100px;
+
     >.date{
+      padding: 14px;
         h3 {
             font-family: Clash Grotesk;
             text-transform: uppercase;
@@ -75,7 +77,7 @@ onMounted(() => {
     }
     .cover{
         width: 100%;
-        height: 72px;
+        height: 100px;
         img{
             height: 100%;
             width: 100%;

@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxthub/core": "^0.8.7",
     "@nuxtjs/supabase": "^1.4.3",
     "@pinia/nuxt": "^0.8.0",
     "@supabase/ssr": "^0.5.2",
