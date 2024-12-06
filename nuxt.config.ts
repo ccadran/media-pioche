@@ -1,7 +1,7 @@
 import { isBrowser } from "@supabase/ssr";
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ["@nuxtjs/supabase", "@pinia/nuxt", "@nuxthub/core"],
   css: ["~/assets/styles/index.scss"],
   supabase: {

@@ -19,6 +19,7 @@ onMounted(() => {
     y: -100, 
     opacity: 0, 
     duration: 1,
+    delay: 3,
     ease: "expo", 
   });
 })

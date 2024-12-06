@@ -6,15 +6,12 @@
     <div class="themes">
         <img src="/assets/icons/logo.svg" alt="" class="logo">
         <h4>Retrouves tes infos de la semaine à travers différentes thématiques</h4>
-        <div class="video-container">
-
-            <video 
+        <video 
             src="/assets/videos/THEMES.mp4" 
             class="themes-video"
             autoplay 
             muted
-            ></video>
-        </div>
+        ></video>
         <NuxtLink to="/onboarding/swipe" class="btn-onboarding" >
             <h3>Ok !</h3>
         </NuxtLink>
@@ -39,7 +36,7 @@
         font-size: 22px;
         text-align: center;
     }
-    .video-container{
+    .themes-video{
         height: 70svh;
     }
 

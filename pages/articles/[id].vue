@@ -55,6 +55,9 @@ const getBackgroundColor = (theme: string): string => {
 };
 
 
+console.log(suggestedArticles.value);
+
+
 
 
 
@@ -79,8 +82,8 @@ const getBackgroundColor = (theme: string): string => {
             <p>{{ article.author }}</p>
             <p class="date"> - {{ article.date }}</p>
         </div>
-        <div class="know-more">
-            <h4>Pour en savoir plus:</h4>  
+        <div v-if="suggestedArticles.length > 0 " class="know-more">
+            <h4 v-if="suggestedArticles">Pour en savoir plus:</h4>  
             <ArticleSuggestedArticles :suggestedArticles="suggestedArticles" />
         </div>
     </div>

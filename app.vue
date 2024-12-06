@@ -3,7 +3,7 @@
 const { data } = await useFetch('/api/articles')
 
 
-onBeforeMount(() => {
+onMounted(() => {
     navigateTo('/onboarding')
 })
 

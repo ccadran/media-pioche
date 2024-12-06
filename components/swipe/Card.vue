@@ -47,8 +47,8 @@ onMounted(() => {
     onDrag(){
       const tilt = this.x / 10;
       gsap.to(this.target, {
-        rotationZ: tilt, // Rotate the card along the Z-axis for a tilt effect
-        duration: 0.1,   // Make the rotation smooth
+        rotationZ: tilt, 
+        duration: 0.1,   
       });
     },
     onDragEnd() {

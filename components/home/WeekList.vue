@@ -20,7 +20,7 @@ onMounted(() => {
     opacity: 0, 
     duration: 2,
     stagger: 0.1,
-    delay: 0.3,
+    delay: 3.3,
     ease: "expo", 
   });
 })
