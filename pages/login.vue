@@ -48,7 +48,7 @@ const onSubmit = async (event: Event) => {
             if (response) {
                 console.log("Login success:", response);
                 user.value = response.user
-                //navigateTo('/admin')
+                navigateTo('/admin')
             }
 
             /* if(error){

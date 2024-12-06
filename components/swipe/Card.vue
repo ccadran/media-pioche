@@ -42,6 +42,14 @@ onMounted(() => {
         scale: 0.8,
         zIndex: 1000,
       });
+
+    },
+    onDrag(){
+      const tilt = this.x / 10;
+      gsap.to(this.target, {
+        rotationZ: tilt, // Rotate the card along the Z-axis for a tilt effect
+        duration: 0.1,   // Make the rotation smooth
+      });
     },
     onDragEnd() {
       console.log('Dragged:', this.target); 
@@ -67,6 +75,7 @@ onMounted(() => {
       }else{
         gsap.to(this.target, {
           x: 0,
+          rotationZ: 0, 
           duration: 0.5,
           ease: 'power2.out',
           scale: 1,

@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import type { Week } from '~/@types/api';
+import { onMounted } from 'vue';
+import gsap from 'gsap';
 
 defineProps({
   mainWeek: {
@@ -11,6 +13,15 @@ defineProps({
 function formatDate(date: string): string {
   return date.slice(0, 6);
 }
+
+onMounted(() => {
+  gsap.from(".main-week", {
+    y: -100, 
+    opacity: 0, 
+    duration: 1,
+    ease: "expo", 
+  });
+})
 </script>
 
 <template>

@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import type { Week } from '~/@types/api';
+import { onMounted } from 'vue';
+import gsap from 'gsap';
 
 defineProps({
   weeks: {
@@ -12,6 +14,17 @@ function formatDate(dateString: string): string {
   const parts = dateString.split(" "); // Divise la chaîne
   return `${parts[0]} ${parts[1]}`; // Combine le jour et le mois
 }
+onMounted(() => {
+  gsap.from(".week", {
+    y: -100, 
+    opacity: 0, 
+    duration: 2,
+    stagger: 0.1,
+    delay: 0.3,
+    ease: "expo", 
+  });
+})
+
 </script>
 
 <template>
@@ -46,8 +59,9 @@ function formatDate(dateString: string): string {
     grid-template-columns: repeat(2,50%);
     align-items: center;
     width: 100%;
-    max-height: 100%;
+
     height: 100px;
+
     >.date{
       padding: 14px;
         h3 {
