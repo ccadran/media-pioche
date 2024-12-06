@@ -11,6 +11,7 @@
             class="themes-video"
             autoplay 
             muted
+            playsinline
         ></video>
         <NuxtLink to="/onboarding/swipe" class="btn-onboarding" >
             <h3>Ok !</h3>
