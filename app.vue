@@ -5,9 +5,9 @@
 
 const { data } = await useFetch('/api/articles')
 
-
-
-
+onBeforeMount(() => {
+    navigateTo('/onboarding')
+})
 
 </script>
 

@@ -20,6 +20,10 @@ defineProps({
     type: Function,
     required: true,
   },
+  read_target: {
+    type: Number,
+    required: true,
+  },
 });
 </script>
 
@@ -29,7 +33,7 @@ defineProps({
       <img src="/assets/icons/cross.svg" alt="Skip">
     </button>
     <div class="lecture-time">
-      <p>{{ `${lectureTime}/15min` }}</p>
+      <p>{{ `${lectureTime}/${read_target}min` }}</p>
       <div class="time-progress">
         <div class="progress" :style="{ width: progressWidth }"></div>
       </div>
