@@ -43,5 +43,4 @@ function formatDate(date: string): string {
     flex-direction: column;
     gap: 52px;
 }
-
 </style>
