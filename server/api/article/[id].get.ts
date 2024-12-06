@@ -1,26 +1,26 @@
 import { serverSupabaseClient } from "#supabase/server";
 
 export default eventHandler(async (event) => {
-    try {
-        const client = await serverSupabaseClient(event);
 
-        // Récupération de l'ID depuis les paramètres de l'événement
-        const articleId = event.context?.params!.id;
+  try {
+    const client = await serverSupabaseClient(event);
 
-        // Requête pour récupérer la catégorie spécifique
-        const { data, error } = await client
-            .from("article")
-            .select("*")
-            .eq("id", articleId);
+    const articleId = event.context?.params!.id;
 
-        if (error) throw error;
+    const { data, error } = await client
+      .from("article")
+      .select("*")
+      .eq("id", articleId);
 
-        return data;
-    } catch (error) {
-        console.error("Error fetching article:", error);
-        return createError({
-        statusCode: 500,
-        statusMessage: "Erreur lors de la récupération de l'article",
-        });
-    }
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching category:", error);
+    return createError({
+      statusCode: 500,
+      statusMessage: "Erreur lors de la récupération de la catégorie",
+    });
+  }
 });
+

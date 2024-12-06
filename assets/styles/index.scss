@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+body{
+    padding: 0 20px;
+    height: 100svh;
+    font-family: Satoshi;
+    color: var(--black);
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+button,.back{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+:root {
+    --purple: #9D6EFF;
+    --yellow: #FFEB5A;
+    --pink: #FFAAF5;
+    --green: #34DF77;
+    --blue: #427EFF;
+    --red: #FF5858;
+    --white: #FFFFFF;
+    --dark: #303030;
+    --black: #000000;
+    --grey: #EBEBEB;
+  }
+
+@font-face{
+    font-family: 'Clash Grotesk';
+    src: url("/fonts/ClashGrotesk-Bold.otf");
+    font-weight: 700;
+}
+
+@font-face{
+    font-family: 'Clash Grotesk';
+    src: url("/fonts/ClashGrotesk-Medium.otf");
+    font-weight: 500;
+}
+
+@font-face{
+    font-family: 'Clash Grotesk';
+    src: url("/fonts/ClashGrotesk-Regular.otf");
+    font-weight: 400;
+}
+
+@font-face{
+    font-family: 'Satoshi-bold';
+    src: url("/fonts/Satoshi-Bold.otf");
+    font-weight: 700;
+}
+
+@font-face{
+    font-family: 'Satoshi-medium';
+    src: url("/fonts/Satoshi-Medium.otf");
+    font-weight: 500;
+}
+
+@font-face{
+    font-family: 'Satoshi-regular';
+    src: url("/fonts/Satoshi-Regular.otf");
+    font-weight: 400;
+}

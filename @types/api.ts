@@ -10,8 +10,8 @@ export interface Article {
   lecture_time: number;
   week: number;
   theme: string;
-  date: string;
   illustration: string;
+  date: string;
 }
 
 export interface suggestedArticles {

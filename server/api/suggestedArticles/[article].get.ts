@@ -3,9 +3,14 @@ import { serverSupabaseClient } from "#supabase/server";
 export default defineEventHandler(async (event) => {
   try {
     const supabase = await serverSupabaseClient(event);
+
+    const articleId = event.context?.params!.article;
+    console.log("articleId", articleId);
+
     const { data, error } = await supabase
-      .from("suggested_articles")
-      .select("*");
+      .from("suggested-article")
+      .select("*")
+      .eq("article_id", articleId);
     return data;
   } catch (error) {
     console.error("Error fetching articles:", error);
