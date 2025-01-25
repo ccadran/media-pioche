@@ -7,20 +7,22 @@ import gsap from 'gsap';
 
 
 const { data, error } = await useFetch('/api/week');
-
+/* console.log("raw data", data); */
 
 const weeks = ref<Week[]>([]);
 const mainWeek = ref<Week>(); 
 const otherWeeks = ref<Week[]>([]);
 
 if (Array.isArray(data.value)){
-  weeks.value = data.value.reverse(); 
+  weeks.value = [...data.value].reverse(); 
+  console.log("MAIN WEEK", weeks.value[0]);
 }
 
 
 if (weeks.value.length > 0) {
   mainWeek.value = weeks.value[0]; 
   otherWeeks.value = weeks.value.slice(1);
+  /* console.log("OTHER WEEKS", otherWeeks.value); */
 }
 
 
@@ -44,7 +46,7 @@ onMounted(() => {
 
 <template>
   <div class="loader">
-    <video src="/assets/videos/Logo_Animation.mp4" autoplay muted ></video>
+    <video src="/assets/videos/Logo_Animation.mp4" autoplay muted playsinline></video>
   </div>
   <div class="weeks-container">
     <img src="/assets/icons/logo.svg" alt="" class="logo">

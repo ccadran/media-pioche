@@ -2,6 +2,16 @@
 import type { User } from '@supabase/supabase-js';
 import { reactive } from 'vue'
 
+type LoginResponse = {
+    user: {
+        id: string;
+        email: string;
+        role: string;
+    };
+};
+
+type PartialUser = Partial<User>;
+
 const state = reactive({
     email: '',
     password: ''
@@ -36,7 +46,7 @@ const onSubmit = async (event: Event) => {
         try{
             //const { data, error } = await useFetch(`/api/login?email=${state.email}&password=${state.password}`)
 
-            const response = await $fetch('/api/login', {
+            const response = await $fetch< { user: PartialUser } >('/api/login', {
                 method: 'POST',
                 body: {
                     email: state.email,
@@ -47,7 +57,7 @@ const onSubmit = async (event: Event) => {
             // Update user dynamically if part of the response
             if (response) {
                 console.log("Login success:", response);
-                user.value = response.user
+                user.value = response.user as User
                 navigateTo('/admin')
             }
 

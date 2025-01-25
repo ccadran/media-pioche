@@ -13,6 +13,15 @@ watch(() => readingTimeStore.readingTime, (newValue) => {
 
 const objectifs = [5, 10, 15];
 
+const completeOnboarding = (time: number) => {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days expiration
+    document.cookie = `onboardingCompleted=true; expires=${expires.toUTCString()}; path=/`;
+    document.cookie = `readingTime=${time}; expires=${expires.toUTCString()}; path=/`;
+
+    readingTimeStore.setReadingTime(time);
+};
+
 
 
 </script>
@@ -22,16 +31,25 @@ const objectifs = [5, 10, 15];
         <img src="/assets/icons/logo.svg" alt="" class="logo">
         <h4>Défini ton objectif de lecture par semaine</h4>
         <div class="objectifs-reading">
-
-            <div
+            <!-- <div
             v-for="objectif in objectifs"
             :key="objectif"
             @click="setReadingTime(objectif)"
             :class="['objectif', { active: readingTimeStore.readingTime === objectif }]"
             >
-               <p>
-                   {{ objectif }}min
-               </p>
+                <p>
+                    {{ objectif }}min
+                </p>
+            </div> -->
+            <div
+            v-for="objectif in objectifs"
+            :key="objectif"
+            @click="completeOnboarding(objectif)"
+            :class="['objectif', { active: readingTimeStore.readingTime === objectif }]"
+            >
+                <p>
+                    {{ objectif }}min
+                </p>
             </div>
         </div>
         <h4>Pas d’inquiétudes, ça ne te limitera / te forcera à rien !</h4>
