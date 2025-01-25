@@ -182,6 +182,7 @@ const getBackgroundColor = (theme: string): string => {
 .swipe{
     height: 100svh;
     position: relative;
+    overflow: hidden;
 }
 .navigation{
     padding-top: 24px;
