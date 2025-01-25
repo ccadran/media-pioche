@@ -58,7 +58,12 @@ const getBackgroundColor = (theme: string): string => {
 console.log(suggestedArticles.value);
 
 
-
+const resetStore = () => {
+    if (articleStore.currentIndex >= articleStore.articles.length) {
+        articleStore.resetCurrentIndex();
+        articleStore.resetArticlesArray();
+    }
+}
 
 
 </script>
@@ -97,6 +102,7 @@ console.log(suggestedArticles.value);
             ? `/articles/${articleStore.articles[articleStore.currentIndex]?.id}`
             : '/'"
         class="continue-reading"
+        @click="resetStore()"
         >
             <h3>{{ articleStore.currentIndex < articleStore.articles.length ? 'Continuer la lecture !' : "Retour à l'accueil" }}</h3>
         </NuxtLink>

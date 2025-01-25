@@ -28,6 +28,14 @@ export const useArticlesStore = defineStore("articles", () => {
     currentIndex.value = currentIndex.value + 1;
   }
 
+  function resetArticlesArray(){
+    articles.value = [];
+  }
+
+  function resetCurrentIndex() {
+    currentIndex.value = 0;
+  }
+
   const currentArticle = computed(() => {
     return articles.value[currentIndex.value];
   });
@@ -42,5 +50,7 @@ export const useArticlesStore = defineStore("articles", () => {
     nextArticle,
     currentArticle,
     currentIndex,
+    resetCurrentIndex,
+    resetArticlesArray,
   };
 });

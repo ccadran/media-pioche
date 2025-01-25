@@ -58,6 +58,7 @@ onMounted(() => {
         console.log('right');
         gsap.to(this.target, {
           x: 600,
+          rotationZ: 0,
           duration: 0.5,
           ease: 'power2.out',
 
@@ -67,6 +68,7 @@ onMounted(() => {
         console.log('left');
         gsap.to(this.target, {
           x: -600,
+          rotationZ: 0,
           duration: 0.5,
           ease: 'power2.out',
 

@@ -54,7 +54,7 @@ export default defineNuxtConfig({
       ]
     },
     workbox: {
-      navigateFallback: "/onboarding",
+      navigateFallback: "/",
     },
     devOptions: {
       enabled: true,
