@@ -18,6 +18,7 @@ const article = ref({}) as Ref<Article>;
 
 const { data, error } = await useFetch<Article>(`/api/article/${articleId}`);
 
+// @ts-ignore
 article.value = data.value[0] ?? [];
 
 console.log("caca", article.value);
@@ -74,6 +75,7 @@ const onSubmit = async (event: Event) => {
         if (response) {
             console.log("Insert success:", response);
             //weeks.value = response.week   //faut faire un push dans l'array du weeks.value pour ainsi remount la page
+            // @ts-ignore
             article.value = response.article[0];
         }
     } catch(error){

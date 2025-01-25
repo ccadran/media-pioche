@@ -1,4 +1,5 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
+  /// <reference types="vite-plugin-pwa/client" />
   "extends": "./.nuxt/tsconfig.json"
 }

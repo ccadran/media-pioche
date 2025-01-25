@@ -143,6 +143,7 @@ console.log(suggestedArticles.value);
     }
     >.article-illustration{
         height: 220px;
+        margin-top: 24px;
         >img{
             width: 100%;
             height: 100%;

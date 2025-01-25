@@ -11,6 +11,7 @@ defineProps({
 });
 
 function formatDate(date: string): string {
+  console.log("MainWeek Data", date)
   return date.slice(0, 6);
 }
 

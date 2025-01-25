@@ -6,10 +6,22 @@ import { useReadingTimeStore } from '~/stores/readingTime';
 import type { Article } from '~/@types/api';
 import gsap from 'gsap';
 
+const getCookie = (name: string) => {
+  const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
+    const [key, value] = cookie.split('=');
+    acc[key] = value;
+    return acc;
+  }, {} as Record<string, string>);
+
+  return cookies[name];
+};
+
 const route = useRoute();
 
 const articlesStore = useArticlesStore();
-const readingTimeStore = useReadingTimeStore();
+//const readingTimeStore = useReadingTimeStore();
+const readingTimeCookie = Number(getCookie('readingTime'));
+console.log('Stored Reading Time:', readingTimeCookie);
 
 
 const week = route.params.week;
@@ -105,7 +117,7 @@ watch(currentCardIndex,()=>{
 
 
 const progressWidth = computed(() => {
-  const percentage = (lectureTime.value / readingTimeStore.readingTime) * 100;
+  const percentage = (lectureTime.value / readingTimeCookie) * 100;
   return `${Math.min(percentage, 100)}%`; // Limiter à 100%
 });
 
@@ -134,11 +146,14 @@ const getBackgroundColor = (theme: string): string => {
         <button @click="backBtn()" class="back">
           <img src="/assets/icons/back.svg" alt="">
         </button>
-        <div class="title counter">
+        <div v-if="articles.length > 0" class="title counter">
           <h3>{{ `${currentCardIndex + 1} / ${articles.length}` }}</h3>
         </div>
       </div>
-      <div class="cards-container">
+      <div v-if="articles.length <= 0"class="cards-container">
+        <h4>Pas de cartes disponible pour cetter semaine !</h4>
+      </div>
+      <div v-if="articles.length > 0" class="cards-container">
         <h4>Pioche tes cartes !</h4>
         <SwipeCard
           v-for="(card, index) in articles"
@@ -152,11 +167,12 @@ const getBackgroundColor = (theme: string): string => {
         />
       </div>
       <SwipeChoices
+      v-if="articles.length > 0"
       :lectureTime="lectureTime"
       :progressWidth="progressWidth"
       :onSkip="skipArticle"
       :onAddToStore="() => addToStore(currentCard!)"
-      :read_target="readingTimeStore.readingTime"
+      :read_target="readingTimeCookie"
     />
     </div>
   </template>

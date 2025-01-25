@@ -75,6 +75,7 @@ const onSubmit = async (event: Event) => {
             console.log("Insert success:", response);
             console.log("Articles", articles.value)
             //weeks.value = response.week   //faut faire un push dans l'array du weeks.value pour ainsi remount la page
+            // @ts-ignore
             articles.value.push(response.article[0]);
         }
     } catch(error){
@@ -97,6 +98,7 @@ const deleteArticle = async (article:number) => {
             console.log("Delete success:", response);
             console.log("Articles", articles.value)
             //weeks.value = response.week   //faut faire un push dans l'array du weeks.value pour ainsi remount la page
+            // @ts-ignore
             articles.value = response.articles;
         }
     } catch(error){
