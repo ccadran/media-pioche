@@ -19,7 +19,7 @@
             autoplay 
             muted
             loop
-            playsinline
+            playsinline 
         ></video>        <NuxtLink to="/onboarding/objectifs" class="btn-onboarding" >
             <h3>J'ai compris !</h3>
         </NuxtLink>
