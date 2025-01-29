@@ -21,7 +21,6 @@ const route = useRoute();
 const articlesStore = useArticlesStore();
 //const readingTimeStore = useReadingTimeStore();
 const readingTimeCookie = Number(getCookie("readingTime"));
-console.log("Stored Reading Time:", readingTimeCookie);
 
 const week = route.params.week;
 
@@ -34,15 +33,12 @@ if (data.value) {
   articles.value = data.value as Article[];
 }
 
-articles.value.forEach((article) => {
-  console.log(article.theme);
-});
-
 const addToStore = (article: Article) => {
   articlesStore.addArticle(article);
   console.log("add to store");
   console.log(articlesStore.articles, "articles in store");
   lectureTime.value += article.lecture_time;
+
   currentCardIndex.value++;
 
   gsap.to(`.card[data-index="${currentCardIndex.value - 1}"]`, {
@@ -64,7 +60,6 @@ const skipArticle = () => {
 };
 
 const removeFromStore = (article: Article) => {
-  console.log("remove from store");
   articlesStore.removeArticle(article.id);
 };
 
@@ -99,7 +94,6 @@ currentCard.value = articles.value[currentCardIndex.value];
 watch(currentCardIndex, () => {
   if (currentCardIndex.value < articles.value.length) {
     currentCard.value = articles.value[currentCardIndex.value];
-    console.log(currentCard.value);
   } else {
     navigateTo(`/recap/${week}`);
   }
@@ -192,6 +186,15 @@ onMounted(() => {
       0.75
     );
 });
+
+const indexDisplay = ref<number>(currentCardIndex.value + 1);
+watch(currentCardIndex, () => {
+  if (currentCardIndex.value + 1 > articles.value.length) {
+    indexDisplay.value = articles.value.length;
+  } else {
+    indexDisplay.value = currentCardIndex.value + 1;
+  }
+});
 </script>
 
 <template>
@@ -201,7 +204,7 @@ onMounted(() => {
         <img src="/assets/icons/back.svg" alt="" />
       </button>
       <div v-if="articles.length > 0" class="title counter">
-        <h3>{{ `${currentCardIndex + 1} / ${articles.length}` }}</h3>
+        <h3>{{ `${indexDisplay} / ${articles.length}` }}</h3>
       </div>
     </div>
     <div v-if="articles.length <= 0" class="cards-container">
