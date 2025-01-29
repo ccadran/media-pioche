@@ -1,24 +1,20 @@
 <script setup>
-import VitePwaManifest from './node_modules/@vite-pwa/nuxt/dist/runtime/components/VitePwaManifest.js';
-import { useFetch } from '#app';
+import VitePwaManifest from "./node_modules/@vite-pwa/nuxt/dist/runtime/components/VitePwaManifest.js";
+import { useFetch } from "#app";
 
-
-const { data } = await useFetch('/api/articles')
-
+const { data } = await useFetch("/api/articles");
 
 onMounted(() => {
-    const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
-      const [key, value] = cookie.split('=');
-      acc[key] = value;
-      return acc;
-    }, {});
-    
-    if (!cookies.onboardingCompleted) {
-      navigateTo('/onboarding')
-    }
-})
+  const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
+    const [key, value] = cookie.split("=");
+    acc[key] = value;
+    return acc;
+  }, {});
 
-
+  if (!cookies.onboardingCompleted) {
+    navigateTo("/onboarding");
+  }
+});
 </script>
 
 <template>
@@ -40,5 +36,14 @@ onMounted(() => {
   pointer-events: none;
   //transition: transform 0.8s ease-in-out;
 }
-</style>
 
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+</style>

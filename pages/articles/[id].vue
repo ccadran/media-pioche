@@ -4,6 +4,10 @@ import type { Article } from "~/@types/api";
 import type { suggestedArticles } from "~/@types/api";
 import gsap from "gsap";
 
+onMounted(() => {
+  gsap.from(".article", { opacity: 0.3, ease: "power1.inOut" });
+});
+
 const articleStore = useArticlesStore();
 
 const route = useRoute();
