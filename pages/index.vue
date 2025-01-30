@@ -26,16 +26,33 @@ function formatDate(date: string): string {
   return date.slice(0, 6);
 }
 
-onMounted(() => {
-  gsap.to(".loader", {
-    delay: 3,
-    opacity: 0,
-    duration: 0.75,
-    ease: "power2.inOut",
-    onComplete: () => {
-      gsap.set(".loader", { display: "none" });
-    },
-  });
+const showLoader = ref(true);
+
+onBeforeMount(() => {
+  // Vérifier si c'est la première visite
+  const hasVisited = sessionStorage.getItem("hasVisitedBefore");
+  console.log(showLoader.value);
+  console.log(hasVisited);
+
+  if (!hasVisited) {
+    // Première visite : montrer le loader
+    showLoader.value = true;
+    gsap.set(".loader", { display: "flex" });
+    gsap.to(".loader", {
+      delay: 3,
+      opacity: 0,
+      duration: 0.75,
+      ease: "power2.inOut",
+      onComplete: () => {
+        gsap.set(".loader", { display: "none" });
+        sessionStorage.setItem("hasVisitedBefore", "true");
+      },
+    });
+  } else {
+    showLoader.value = false;
+
+    gsap.set(".loader", { display: "none" });
+  }
 });
 </script>
 
@@ -51,17 +68,18 @@ onMounted(() => {
   <div class="weeks-container">
     <img src="/assets/icons/logo.svg" alt="" class="logo" />
 
-    <HomeMainWeek :mainWeek="mainWeek!" />
-    <HomeWeekList :weeks="otherWeeks" />
+    <HomeMainWeek :mainWeek="mainWeek!" :delayed="showLoader" />
+    <HomeWeekList :weeks="otherWeeks" :delayed="showLoader" />
   </div>
 </template>
 
 <style lang="scss">
 .loader {
+  display: none;
   position: fixed;
   height: 100svh;
   width: 100svw;
-  display: flex;
+
   justify-content: center;
   align-items: center;
   left: 0;

@@ -1,29 +1,41 @@
 <script lang="ts" setup>
-import type { Week } from '~/@types/api';
-import { onMounted } from 'vue';
-import gsap from 'gsap';
+import type { Week } from "~/@types/api";
+import { onMounted } from "vue";
+import gsap from "gsap";
 
-defineProps({
+const props = defineProps({
   mainWeek: {
     type: Object as () => Week,
     required: true,
   },
+  delayed: {
+    type: Boolean,
+  },
 });
 
 function formatDate(date: string): string {
-  console.log("MainWeek Data", date)
+  console.log("MainWeek Data", date);
   return date.slice(0, 6);
 }
 
 onMounted(() => {
-  gsap.from(".main-week", {
-    y: -100, 
-    opacity: 0, 
-    duration: 1,
-    delay: 3,
-    ease: "expo", 
-  });
-})
+  console.log(props.delayed);
+
+  gsap.fromTo(
+    ".main-week",
+    {
+      y: -100,
+      opacity: 0,
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      delay: props.delayed ? 3 : 0,
+      ease: "expo",
+    }
+  );
+});
 </script>
 
 <template>
@@ -32,7 +44,7 @@ onMounted(() => {
       semaine du <span>{{ formatDate(mainWeek.date) }}</span>
     </h4>
     <div class="img-container">
-      <img :src="mainWeek.cover" alt="">
+      <img :src="mainWeek.cover" alt="" />
     </div>
     <h3>Les actus de la semaine</h3>
     <div class="border">
@@ -58,6 +70,7 @@ onMounted(() => {
   border-radius: 12px;
   padding: 14px;
   margin-bottom: 52px;
+  opacity: 0;
   h4 {
     font-family: Clash Grotesk;
     text-transform: uppercase;
