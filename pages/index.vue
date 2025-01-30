@@ -5,7 +5,6 @@ import type { Week } from "~/@types/api";
 import gsap from "gsap";
 
 const { data, error } = await useFetch("/api/week");
-/* console.log("raw data", data); */
 
 const weeks = ref<Week[]>([]);
 const mainWeek = ref<Week>();
@@ -13,13 +12,11 @@ const otherWeeks = ref<Week[]>([]);
 
 if (Array.isArray(data.value)) {
   weeks.value = [...data.value].reverse();
-  console.log("MAIN WEEK", weeks.value[0]);
 }
 
 if (weeks.value.length > 0) {
   mainWeek.value = weeks.value[0];
   otherWeeks.value = weeks.value.slice(1);
-  /* console.log("OTHER WEEKS", otherWeeks.value); */
 }
 
 function formatDate(date: string): string {
@@ -31,8 +28,6 @@ const showLoader = ref(true);
 onBeforeMount(() => {
   // Vérifier si c'est la première visite
   const hasVisited = sessionStorage.getItem("hasVisitedBefore");
-  console.log(showLoader.value);
-  console.log(hasVisited);
 
   if (!hasVisited) {
     // Première visite : montrer le loader

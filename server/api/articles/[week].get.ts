@@ -7,15 +7,11 @@ export default eventHandler(async (event) => {
     // Récupération de l'ID depuis les paramètres de l'événement
     const weekId = event.context?.params!.week;
 
-    console.log("weekId", weekId);
-
     // Requête pour récupérer la catégorie spécifique
     const { data, error } = await client
       .from("article")
       .select("*")
       .eq("week", weekId);
-
-    console.log("data", data);
 
     if (error) throw error;
 

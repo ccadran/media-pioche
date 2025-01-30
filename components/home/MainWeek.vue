@@ -14,13 +14,10 @@ const props = defineProps({
 });
 
 function formatDate(date: string): string {
-  console.log("MainWeek Data", date);
   return date.slice(0, 6);
 }
 
 onMounted(() => {
-  console.log(props.delayed);
-
   gsap.fromTo(
     ".main-week",
     {

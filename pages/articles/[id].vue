@@ -12,7 +12,7 @@ const articleStore = useArticlesStore();
 
 const route = useRoute();
 const articleId = route.params.id;
-console.log(articleId);
+
 const article = ref({}) as Ref<Article>;
 const suggestedArticles = ref<suggestedArticles[]>([]);
 
@@ -21,7 +21,6 @@ const { data: articleData, error: articleError } = await useFetch(
 );
 const { data: suggestedArticlesData, error: suggestedArticlesError } =
   await useFetch(`/api/suggestedArticles/${articleId}`);
-console.log(articleData);
 
 if (Array.isArray(articleData.value)) {
   article.value = articleData.value[0];
@@ -33,12 +32,9 @@ if (Array.isArray(suggestedArticlesData.value)) {
 
 onMounted(() => {
   articleStore.nextArticle();
-  console.log(articleStore.currentIndex);
-  console.log(article);
+
   const enterTl = gsap.timeline();
 });
-
-console.log(articleStore.currentIndex, "testttt");
 
 const getBackgroundColor = (theme: string): string => {
   const themeColors: Record<string, string> = {
@@ -52,8 +48,6 @@ const getBackgroundColor = (theme: string): string => {
 
   return themeColors[theme.toLowerCase()] || "var(--default-color)";
 };
-
-console.log(suggestedArticles.value);
 
 const resetStore = () => {
   if (articleStore.currentIndex >= articleStore.articles.length) {
