@@ -4,7 +4,6 @@ import type { Article } from "~/@types/api";
 import gsap from "gsap";
 
 const route = useRoute();
-console.log(route.params);
 
 const week = route.params.weekrecap;
 
@@ -16,14 +15,10 @@ if (data.value) {
 }
 
 const addArticleToStore = (article: Article) => {
-  console.log(article);
-
   articlesStore.addArticle(article);
 };
 
 const removeArticleFromStore = (article: Article) => {
-  console.log(article);
-
   articlesStore.removeArticle(article.id);
 };
 

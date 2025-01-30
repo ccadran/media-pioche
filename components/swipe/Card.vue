@@ -1,14 +1,8 @@
 <script lang="ts" setup>
-import type { Article } from '~/@types/api';
-import gsap from 'gsap';
-import { Draggable } from 'gsap/Draggable';
+import type { Article } from "~/@types/api";
+import gsap from "gsap";
+import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(Draggable);
-
-
-
-
-
-
 
 const props = defineProps({
   card: {
@@ -29,76 +23,66 @@ const props = defineProps({
   },
 });
 
-let zIndex = props.index
-
+let zIndex = props.index;
 
 onMounted(() => {
-  Draggable.create('.card', {
-    type: 'x',
-    inertia: true, 
-    onDragStart(){
+  Draggable.create(".card", {
+    type: "x",
+    inertia: true,
+    onDragStart() {
       gsap.to(this.target, {
         duration: 0.5,
         scale: 0.8,
         zIndex: 1000,
       });
-
     },
-    onDrag(){
+    onDrag() {
       const tilt = this.x / 10;
       gsap.to(this.target, {
-        rotationZ: tilt, 
-        duration: 0.1,   
+        rotationZ: tilt,
+        duration: 0.1,
       });
     },
     onDragEnd() {
-      console.log('Dragged:', this.target); 
-      
-      if(this.endX >100){
-        console.log('right');
+      if (this.endX > 100) {
         gsap.to(this.target, {
           x: 600,
           rotationZ: 0,
           duration: 0.5,
-          ease: 'power2.out',
-
+          ease: "power2.out",
         });
         props.onAddToStore();
-      }else if(this.endX < -100){
-        console.log('left');
+      } else if (this.endX < -100) {
         gsap.to(this.target, {
           x: -600,
           rotationZ: 0,
           duration: 0.5,
-          ease: 'power2.out',
-
+          ease: "power2.out",
         });
         props.onSkip();
-      }else{
+      } else {
         gsap.to(this.target, {
           x: 0,
-          rotationZ: 0, 
+          rotationZ: 0,
           duration: 0.5,
-          ease: 'power2.out',
+          ease: "power2.out",
           scale: 1,
-
         });
       }
-      
     },
   });
 });
-
-
-
-
-
 </script>
 
 <template>
-  <div class="card" :key="index" :style="{ zIndex: 1000 - zIndex }" :data-index="index" >
+  <div
+    class="card"
+    :key="index"
+    :style="{ zIndex: 1000 - zIndex }"
+    :data-index="index"
+  >
     <div class="img-container">
-      <img :src="card.cover" alt="" class="inner">
+      <img :src="card.cover" alt="" class="inner" />
     </div>
     <div class="card-text">
       <h4>{{ card.title }}</h4>
@@ -110,7 +94,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .card {
   height: 60svh;
-  background-color: #34DF77;
+  background-color: #34df77;
   border-radius: 12px;
   padding: 6px 12px 24px;
   position: absolute;

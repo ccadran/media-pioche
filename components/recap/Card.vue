@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { defineProps } from 'vue';
-import type { Article } from '~/@types/api';
-
+import { defineProps } from "vue";
+import type { Article } from "~/@types/api";
 
 defineProps({
   article: {
@@ -23,8 +22,18 @@ defineProps({
   <NuxtLink class="card" :class="{ 'in-store': !isInStore }" @click="onToggle">
     <img :src="article.cover" alt="" class="cover" />
     <div class="toggle-btn">
-      <img v-if="isInStore" src="/assets/icons/minus.svg" alt="remove" class="remove" />
-      <img v-if="!isInStore" src="/assets/icons/add.svg" alt="add" class="add" />
+      <img
+        v-if="isInStore"
+        src="/assets/icons/minus.svg"
+        alt="remove"
+        class="remove"
+      />
+      <img
+        v-if="!isInStore"
+        src="/assets/icons/add.svg"
+        alt="add"
+        class="add"
+      />
     </div>
   </NuxtLink>
 </template>

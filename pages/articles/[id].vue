@@ -4,17 +4,13 @@ import type { Article } from "~/@types/api";
 import type { suggestedArticles } from "~/@types/api";
 import gsap from "gsap";
 
-onMounted(() => {
-  gsap.from(".article", { opacity: 0.3, ease: "power1.inOut" });
-});
-
 const articleStore = useArticlesStore();
-
 const route = useRoute();
-const articleId = route.params.id;
 
 const article = ref({}) as Ref<Article>;
 const suggestedArticles = ref<suggestedArticles[]>([]);
+
+const articleId = route.params.id;
 
 const { data: articleData, error: articleError } = await useFetch(
   `/api/article/${articleId}`
@@ -31,9 +27,8 @@ if (Array.isArray(suggestedArticlesData.value)) {
 }
 
 onMounted(() => {
+  gsap.from(".article", { opacity: 0.3, ease: "power1.inOut" });
   articleStore.nextArticle();
-
-  const enterTl = gsap.timeline();
 });
 
 const getBackgroundColor = (theme: string): string => {

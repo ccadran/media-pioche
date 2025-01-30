@@ -6,6 +6,11 @@ import { useReadingTimeStore } from "~/stores/readingTime";
 import type { Article } from "~/@types/api";
 import gsap from "gsap";
 
+const articlesStore = useArticlesStore();
+
+const articles = ref<Article[]>([]);
+const lectureTime = ref(0);
+
 const getCookie = (name: string) => {
   const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
     const [key, value] = cookie.split("=");
@@ -18,15 +23,9 @@ const getCookie = (name: string) => {
 
 const route = useRoute();
 
-const articlesStore = useArticlesStore();
-//const readingTimeStore = useReadingTimeStore();
 const readingTimeCookie = Number(getCookie("readingTime"));
 
 const week = route.params.week;
-
-const articles = ref<Article[]>([]);
-
-const lectureTime = ref(0);
 
 const { data, error } = await useFetch(`/api/articles/${week}`);
 if (data.value) {
@@ -35,8 +34,7 @@ if (data.value) {
 
 const addToStore = (article: Article) => {
   articlesStore.addArticle(article);
-  console.log("add to store");
-  console.log(articlesStore.articles, "articles in store");
+
   lectureTime.value += article.lecture_time;
 
   currentCardIndex.value++;

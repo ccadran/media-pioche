@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import { defineProps } from 'vue';
-import type { Article } from '~/@types/api';
+import { defineProps } from "vue";
 
-// Définir les props pour recevoir les données et les fonctions nécessaires
 defineProps({
   lectureTime: {
     type: Number,
@@ -30,7 +28,7 @@ defineProps({
 <template>
   <div class="choices">
     <button @click="onSkip()" class="denied">
-      <img src="/assets/icons/cross.svg" alt="Skip">
+      <img src="/assets/icons/cross.svg" alt="Skip" />
     </button>
     <div class="lecture-time">
       <p>{{ `${lectureTime}/${read_target}min` }}</p>
@@ -39,7 +37,7 @@ defineProps({
       </div>
     </div>
     <button @click="onAddToStore()" class="check">
-      <img src="/assets/icons/check.svg" alt="Add">
+      <img src="/assets/icons/check.svg" alt="Add" />
     </button>
   </div>
 </template>

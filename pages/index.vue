@@ -9,6 +9,7 @@ const { data, error } = await useFetch("/api/week");
 const weeks = ref<Week[]>([]);
 const mainWeek = ref<Week>();
 const otherWeeks = ref<Week[]>([]);
+const showLoader = ref(true);
 
 if (Array.isArray(data.value)) {
   weeks.value = [...data.value].reverse();
@@ -19,18 +20,10 @@ if (weeks.value.length > 0) {
   otherWeeks.value = weeks.value.slice(1);
 }
 
-function formatDate(date: string): string {
-  return date.slice(0, 6);
-}
-
-const showLoader = ref(true);
-
 onBeforeMount(() => {
-  // Vérifier si c'est la première visite
   const hasVisited = sessionStorage.getItem("hasVisitedBefore");
 
   if (!hasVisited) {
-    // Première visite : montrer le loader
     showLoader.value = true;
     gsap.set(".loader", { display: "flex" });
     gsap.to(".loader", {
@@ -45,8 +38,6 @@ onBeforeMount(() => {
     });
   } else {
     showLoader.value = false;
-
-    gsap.set(".loader", { display: "none" });
   }
 });
 </script>
