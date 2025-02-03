@@ -62,73 +62,70 @@ const completeOnboarding = (time: number) => {
 </template>
 
 <style lang="scss">
-.objectifs{
-    height: 100svh;
+.objectifs {
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 0;
+  width: 32px;
+}
+> h4 {
+  font-family: Clash Grotesk;
+  font-weight: 500;
+  font-size: 22px;
+  text-align: center;
+}
+
+> .objectifs-reading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  > .objectif {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 50px;
+    background-color: var(--black);
+    opacity: 0.5;
+    color: var(--white);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 22px 0;
-
-        width: 32px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    width: 50%;
+    > p {
+      font-family: Clash Grotesk;
+      font-size: 22px;
+      font-weight: 700;
     }
-    >h4{
-        font-family: Clash Grotesk;
-        font-weight: 500;
-        font-size: 22px;
-        text-align: center;
-    }
-
-    >.objectifs-reading{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        justify-content: center;
-        >.objectif {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            height: 50px;
-            background-color: var(--black);
-            opacity: 0.5;
-            color: var(--white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-            width: 50%;
-            >p{
-                font-family: Clash Grotesk;
-                font-size: 22px;
-                font-weight: 700;
-            }
 
     &.active {
-        opacity: 1;
+      opacity: 1;
     }
+  }
 }
-    }
 
+> .btn-onboarding {
+  width: 100%;
+  background-color: var(--black);
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  color: var(--white);
+  border-radius: 12px;
+  > h3 {
+    text-align: center;
+    font-family: Clash Grotesk;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  &.disabled {
+    opacity: 0.8;
 
-    >.btn-onboarding{
-        width: 100%;
-        background-color: var(--black);
-        padding: 12px;
-        display: flex;
-        justify-content: center;
-        color: var(--white);
-        border-radius: 12px;
-        >h3{
-            text-align: center;
-            font-family: Clash Grotesk;
-            font-size: 22px;
-            font-weight: 700;
-        }
-        &.disabled {
-            opacity: 0.8;
-
-        cursor: not-allowed;
-        pointer-events: none;
-    }
-    }
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }
 </style>
