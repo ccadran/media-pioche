@@ -25,18 +25,12 @@ const completeOnboarding = (time: number) => {
 
 <template>
   <div class="objectifs">
-    <h4>Défini ton objectif de lecture par semaine</h4>
+    <div class="intro">
+      <img src="/assets/icons/logo.svg" alt="" class="logo" />
+
+      <h4>Défini ton objectif de lecture par semaine</h4>
+    </div>
     <div class="objectifs-reading">
-      <!-- <div
-            v-for="objectif in objectifs"
-            :key="objectif"
-            @click="setReadingTime(objectif)"
-            :class="['objectif', { active: readingTimeStore.readingTime === objectif }]"
-            >
-                <p>
-                    {{ objectif }}min
-                </p>
-            </div> -->
       <div
         v-for="objectif in objectifs"
         :key="objectif"
@@ -68,64 +62,76 @@ const completeOnboarding = (time: number) => {
   flex-direction: column;
   justify-content: space-between;
   padding: 22px 0;
-  width: 32px;
-}
-> h4 {
-  font-family: Clash Grotesk;
-  font-weight: 500;
-  font-size: 22px;
-  text-align: center;
-}
+  > .intro {
+    > .logo {
+      width: 32px;
+    }
 
-> .objectifs-reading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  justify-content: center;
-  > .objectif {
-    cursor: pointer;
-    transition: all 0.3s ease;
-    height: 50px;
+    > h4 {
+      margin-top: 5vh;
+      font-family: Clash Grotesk;
+      font-weight: 500;
+      font-size: 22px;
+      text-align: center;
+    }
+  }
+
+  > .objectifs-reading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+    > .objectif {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      height: 50px;
+      background-color: var(--black);
+      opacity: 0.5;
+      color: var(--white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      width: 50%;
+      > p {
+        font-family: Clash Grotesk;
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      &.active {
+        opacity: 1;
+      }
+    }
+  }
+  > h4 {
+    font-family: Clash Grotesk;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  > .btn-onboarding {
+    width: 100%;
     background-color: var(--black);
-    opacity: 0.5;
-    color: var(--white);
+    padding: 12px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    width: 50%;
-    > p {
+    color: var(--white);
+    border-radius: 12px;
+    > h3 {
+      text-align: center;
       font-family: Clash Grotesk;
       font-size: 22px;
       font-weight: 700;
     }
+    &.disabled {
+      opacity: 0.8;
 
-    &.active {
-      opacity: 1;
+      cursor: not-allowed;
+      pointer-events: none;
     }
-  }
-}
-
-> .btn-onboarding {
-  width: 100%;
-  background-color: var(--black);
-  padding: 12px;
-  display: flex;
-  justify-content: center;
-  color: var(--white);
-  border-radius: 12px;
-  > h3 {
-    text-align: center;
-    font-family: Clash Grotesk;
-    font-size: 22px;
-    font-weight: 700;
-  }
-  &.disabled {
-    opacity: 0.8;
-
-    cursor: not-allowed;
-    pointer-events: none;
   }
 }
 </style>
