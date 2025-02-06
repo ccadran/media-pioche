@@ -1,12 +1,15 @@
 <script lang="ts" setup>
-import type { Week } from '~/@types/api';
-import { onMounted } from 'vue';
-import gsap from 'gsap';
+import type { Week } from "~/@types/api";
+import { onMounted } from "vue";
+import gsap from "gsap";
 
-defineProps({
+const props = defineProps({
   weeks: {
     type: Array as () => Week[],
     required: true,
+  },
+  delayed: {
+    type: Boolean,
   },
 });
 
@@ -15,16 +18,22 @@ function formatDate(dateString: string): string {
   return `${parts[0]} ${parts[1]}`; // Combine le jour et le mois
 }
 onMounted(() => {
-  gsap.from(".week", {
-    y: -100, 
-    opacity: 0, 
-    duration: 2,
-    stagger: 0.1,
-    delay: 3.3,
-    ease: "expo", 
-  });
-})
-
+  gsap.fromTo(
+    ".week",
+    {
+      y: -100,
+      opacity: 0,
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 2,
+      stagger: 0.1,
+      delay: props.delayed ? 3.3 : 0.3,
+      ease: "expo",
+    }
+  );
+});
 </script>
 
 <template>
@@ -35,11 +44,14 @@ onMounted(() => {
       :to="`/swipe/${week.id}`"
       class="week"
     >
-    <div class="date">
-        <h3>SEMAINE DU <br> <span>{{ formatDate(week.date) }}</span></h3>
-    </div>
+      <div class="date">
+        <h3>
+          SEMAINE DU <br />
+          <span>{{ formatDate(week.date) }}</span>
+        </h3>
+      </div>
       <div class="cover">
-        <img :src="week.cover" alt="">
+        <img :src="week.cover" alt="" />
       </div>
     </NuxtLink>
   </div>
@@ -53,38 +65,37 @@ onMounted(() => {
   margin-top: 44px;
 
   .week {
+    opacity: 0;
     background-color: var(--grey);
     border-radius: 12px;
     display: grid;
-    grid-template-columns: repeat(2,50%);
+    grid-template-columns: repeat(2, 50%);
     align-items: center;
     width: 100%;
 
     height: 100px;
 
-    >.date{
+    > .date {
       padding: 14px;
-        h3 {
-            font-family: Clash Grotesk;
-            text-transform: uppercase;
-            font-size: 20px;
-            line-height: 100%;
-            font-weight: 400;
-            >span{
-            font-weight: 700;
+      h3 {
+        font-family: Clash Grotesk;
+        text-transform: uppercase;
+        font-size: 20px;
+        line-height: 100%;
+        font-weight: 400;
+        > span {
+          font-weight: 700;
         }
-        }
+      }
     }
-    .cover{
+    .cover {
+      width: 100%;
+      height: 100px;
+      img {
+        height: 100%;
         width: 100%;
-        height: 100px;
-        img{
-            height: 100%;
-            width: 100%;
-            object-fit: contain;
-            
-        }
-
+        object-fit: contain;
+      }
     }
   }
 }

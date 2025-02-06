@@ -5,7 +5,6 @@ export default defineEventHandler(async (event) => {
     const supabase = await serverSupabaseClient(event);
 
     const articleId = event.context?.params!.article;
-    console.log("articleId", articleId);
 
     const { data, error } = await supabase
       .from("suggested-article")
