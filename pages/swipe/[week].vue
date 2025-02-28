@@ -83,8 +83,6 @@ const backBtn = () => {
   }
 };
 
-const currentArticle = articlesStore.currentIndex;
-
 const currentCard = ref<Article>();
 const currentCardIndex = ref(0);
 currentCard.value = articles.value[currentCardIndex.value];
