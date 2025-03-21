@@ -1,0 +1,25 @@
+name: Keep Supabase Alive via Challenges API
+
+on:
+  schedule:
+    - cron: "0 */12 * * *" # Exécute toutes les 12 heures
+  workflow_dispatch: # Permet l'exécution manuelle pour tester
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Challenges API
+        run: |
+          # On effectue l'appel API et on capture uniquement le code de statut
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X GET "https://media-pioche.nuxt.dev/api/week" \
+            -H "Content-Type: application/json")
+
+          # On vérifie si le code de statut est 200 (Success)
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "Success! API responded with status 200"
+          else
+            echo "Error: API check failed with status $HTTP_STATUS"
+            exit 1
+          fi
